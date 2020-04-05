@@ -1,6 +1,5 @@
-package myownds.array;
+package ds.array;
 
-import array.Array;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,6 +8,15 @@ import org.junit.Test;
  * @date 2020/3/18 9:24 下午
  */
 public class ArrayTest {
+    public static Double test(Double d, Double f) {
+        return d * f;
+    }
+
+    @Test
+    public void testD() {
+        System.out.println(ArrayTest.test(1.2d, 1.3d));
+    }
+
     @Test
     public void testOriginArray() {
         int[] arr = new int[10];
@@ -41,4 +49,5 @@ public class ArrayTest {
         myArr.printAll();
         Assert.assertNotNull(myArr);
     }
+
 }

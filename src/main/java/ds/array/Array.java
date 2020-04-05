@@ -1,4 +1,4 @@
-package array;
+package ds.array;
 
 /**
  * 数组:
@@ -11,7 +11,7 @@ package array;
  */
 public class Array {
     // container
-    public int data[];
+    public int[] data;
     // cap
     private int cap;
     //real length
@@ -36,13 +36,13 @@ public class Array {
     public boolean insert(int idx, int value) {
         // if full
         if (len == cap) {
-            System.out.println("full array.");
+            System.out.println("full ds.array.");
             return false;
         }
         if (idx < 0 || idx >= cap) {
             return false;
         }
-        // array
+        // ds.array
         for (int i = len; i > idx; --i) {
             data[i] = data[i - 1];
         }
