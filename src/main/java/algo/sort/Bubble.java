@@ -4,7 +4,7 @@ package algo.sort;
  * @author Suz1
  * @date 2020/3/24 7:10 下午
  */
-public class Sort {
+public class Bubble {
     /**
      * @param arr the array to sort
      */
