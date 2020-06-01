@@ -3,6 +3,8 @@ package ds.array;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 /**
  * @author Suz1
  * @date 2020/3/18 9:24 下午
@@ -48,6 +50,14 @@ public class ArrayTest {
         myArr.delete(9);
         myArr.printAll();
         Assert.assertNotNull(myArr);
+    }
+
+    @Test
+    public void testArrayList() {
+
+        ArrayList<Object> a = new ArrayList<>();
+        System.out.println(a.size());
+        System.out.println(a.isEmpty());
     }
 
 }

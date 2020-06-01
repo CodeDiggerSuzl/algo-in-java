@@ -18,7 +18,7 @@ public class SequenceList<E> extends AbstractList<E> implements List<E>, Cloneab
 
     // empty array
     private static final Object[] EMPTY_ELEMENTDATA = {};
-    // TODO https://stackoverflow.com/questions/35756277/why-the-maximum-array-size-of-arraylist-is-integer-max-value-8
+    //   https://stackoverflow.com/questions/35756277/why-the-maximum-array-size-of-arraylist-is-integer-max-value-8
     private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
     /**
      * 我们将此与EMPTY_ELEMENTDATA区别开来，以了解添加第一个元素时需要扩容多少。
