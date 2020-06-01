@@ -3,7 +3,7 @@ package ds.linaerlist;
 import java.util.Iterator;
 
 /**
- * 单项链表
+ * 单向链表
  *
  * @author Suz1
  * @date 2020/6/1 5:30 下午
