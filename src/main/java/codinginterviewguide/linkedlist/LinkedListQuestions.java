@@ -71,9 +71,9 @@ public class LinkedListQuestions {
      * @param lastKth 倒数元素
      * @return 新链表的 head
      */
-    public DNode rmLastKthNodeOfDoubleList(DNode head, int lastKth) {
+    public DoubleNode rmLastKthNodeOfDoubleList(DoubleNode head, int lastKth) {
         if (head == null || lastKth < 1) { return head; }
-        DNode curr = head;
+        DoubleNode curr = head;
         while (curr != null) {
             lastKth--;
             curr = curr.next;
@@ -90,7 +90,7 @@ public class LinkedListQuestions {
                 curr = curr.next;
             }
             // ! different stuff
-            DNode temp = curr.next.next;
+            DoubleNode temp = curr.next.next;
             curr.next = temp;
             if (temp != null) {
                 temp.prev = curr;
@@ -112,12 +112,12 @@ public class LinkedListQuestions {
     /**
      * 双向链表 node
      */
-    static class DNode {
+    static class DoubleNode {
         public int val;
-        public DNode next;
-        public DNode prev;
+        public DoubleNode next;
+        public DoubleNode prev;
 
-        public DNode(int data) {
+        public DoubleNode(int data) {
             this.val = data;
         }
     }
