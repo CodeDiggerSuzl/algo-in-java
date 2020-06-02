@@ -1,6 +1,6 @@
 package ds.leetcode.queue;
 
-import leetcodeds.statckqueue.queue.LcCircleQueue;
+import leetcode.statckqueue.queue.LcCircleQueue;
 import org.junit.Test;
 
 /**

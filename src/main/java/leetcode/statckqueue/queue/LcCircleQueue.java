@@ -1,4 +1,4 @@
-package leetcodeds.statckqueue.queue;
+package leetcode.statckqueue.queue;
 
 /**
  * @author Suz1
