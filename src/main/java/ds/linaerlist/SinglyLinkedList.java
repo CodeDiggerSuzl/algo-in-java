@@ -107,6 +107,33 @@ public class SinglyLinkedList<E> implements Iterable<E> {
         return curr;
     }
 
+    // Reverse with head
+    public Node<E> reverseWithHead(Node<E> head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        // 当前节点
+        Node<E> curr = head.next;
+        head.next = null;
+        Node<E> newHead = reverseWithHead(curr);
+        curr.next = head;
+        return newHead;
+    }
+
+    //Reverse with loop
+    public Node<E> reverseWithLoop(Node<E> head) {
+        Node<E> prev = null;
+        Node<E> curr = head;
+        while (curr != null) {
+            Node<E> temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
+    }
+
+
     // Get the element of certain index
     public E get(int index) {
         // 头节点不存储数据 从头结点开始向后查找 查找 n 次,就能查找到
@@ -139,11 +166,11 @@ public class SinglyLinkedList<E> implements Iterable<E> {
      *
      * @param <E> Element
      */
-    private static class Node<E> {
+    public static class Node<E> {
         E data;
         Node<E> next;
 
-        private Node(E data, Node<E> next) {
+        public Node(E data, Node<E> next) {
             this.data = data;
             this.next = next;
         }

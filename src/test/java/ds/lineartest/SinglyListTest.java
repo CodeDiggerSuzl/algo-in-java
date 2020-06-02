@@ -15,10 +15,7 @@ public class SinglyListTest {
         list.insert("2");
         list.insert("3");
         list.insert("4");
-        list.insert(3, "3.1");
         list.print();
-
-        list.reverse();
         list.print();
     }
 }
