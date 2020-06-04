@@ -6,6 +6,10 @@ package leetcode.linkedlist;
  * @author Suz1
  * @date 2020/6/3 10:12 上午
  */
-public class LinkedListSolution {
+public class Solution {
+    /**
+     * Definition for singly-linked list.
+     */
+
 
 }

@@ -170,13 +170,31 @@ public class LinkedListQuestions {
         // 删除
         if (len > 1) {
             curr = head;
-            while (--len != 0) {
+            // ! NOT 0: 是 1 说明
+            while (--len != 1) {
                 curr = curr.next;
             }
             curr.next = curr.next.next;
         }
         return head;
     }
+
+    /**
+     * ch2-No4 reverse singly list & double list
+     *
+     * @param head head
+     * @return new head after reverse
+     */
+    public Node reverseSinglyList(Node head) {
+        if (head == null || head.next == null) { return head; }
+        Node cur = head.next; // next is curr
+        head.next = null;
+        Node newNode = reverseSinglyList(cur);
+        newNode.next = head;
+        return newNode;
+    }
+
+    public
 
     /**
      * 单向链表 node
