@@ -7,6 +7,7 @@ package codinginterviewguide.linkedlist;
  * @date 2020/6/2 3:28 下午
  */
 public class LinkedListQuestions {
+
     /**
      * ch2-No1
      * 打印两个链表的公共部分
@@ -194,7 +195,88 @@ public class LinkedListQuestions {
         return newNode;
     }
 
-    public
+    /**
+     * Using loop to reverse the linked-list
+     *
+     * @param head The head of a list
+     * @return new head
+     */
+    public Node reverseSingleListWithLoop(Node head) {
+        Node prev = null;
+        Node curr = head;
+        while (curr != null) {
+            Node next = curr.next;
+            curr.next = prev;
+            // 向后移动
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+    /**
+     * Reverse the double linked list node
+     *
+     * @param head head
+     * @return new head
+     */
+    public DoubleNode reverseDoubleLinkedList(DoubleNode head) {
+        DoubleNode prev = null;
+        DoubleNode curr = head;
+        while (curr != null) {
+            DoubleNode next = curr.next;
+            curr.next = prev;
+            curr.prev = next;
+            // 向后移动
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+    /**
+     * No 5 of ch2 : reverse part linked list
+     * LeetCode: https://leetcode-cn.com/problems/reverse-linked-list-ii/
+     *
+     * @param head head
+     * @param from start
+     * @param to   end
+     * @return new head
+     */
+    public Node reversePartList(Node head, int from, int to) {
+        int len = 0;
+        Node node1 = head;
+        Node fPre = null, tPos = null;
+        // 遍历一遍 确定 form 和 to 的位置
+        while (node1 != null) {
+            len++;
+            // ! check here
+            fPre = len == from - 1 ? node1 : fPre;
+            tPos = len == to + 1 ? node1 : tPos;
+            node1 = node1.next;
+        }
+        // Judging special cases
+        if (from >= to || from < 1 || to > len) {
+            return head;
+        }
+        // 是否包含头结点
+        node1 = fPre == null ? head : fPre.next;
+        Node node2 = node1.next;
+        node1.next = tPos; //
+        Node next = null;
+        // end
+        while (node2 != tPos) {
+            next = node2.next;
+            node2.next = node1;
+            node1 = node2;
+            node2 = next;
+        }
+        if (fPre != null) {
+            fPre.next = node1;
+            return head;
+        }
+        return node1;
+    }
 
     /**
      * 单向链表 node
