@@ -236,7 +236,9 @@ public class LinkedListQuestions {
 
     /**
      * No 5 of ch2 : reverse part linked list
+     * <p>
      * LeetCode: https://leetcode-cn.com/problems/reverse-linked-list-ii/
+     * </p>
      *
      * @param head head
      * @param from start
@@ -244,28 +246,27 @@ public class LinkedListQuestions {
      * @return new head
      */
     public Node reversePartList(Node head, int from, int to) {
-        int len = 0;
+        int len = 0; // for length
         Node node1 = head;
-        Node fPre = null, tPos = null;
-        // 遍历一遍 确定 form 和 to 的位置
+        Node fPre = null, tPost = null;
+        // 获取长度 获取反转部分到前一个和后一个节点
         while (node1 != null) {
             len++;
-            // ! check here
             fPre = len == from - 1 ? node1 : fPre;
-            tPos = len == to + 1 ? node1 : tPos;
+            tPost = len == to + 1 ? node1 : tPost;
             node1 = node1.next;
         }
-        // Judging special cases
-        if (from >= to || from < 1 || to > len) {
+        // Judging Special cases
+        if (from > to || from < 1 || to > len) {
             return head;
         }
-        // 是否包含头结点
+        // 获取 node1 的值
         node1 = fPre == null ? head : fPre.next;
         Node node2 = node1.next;
-        node1.next = tPos; //
+        node1.next = tPost;
         Node next = null;
-        // end
-        while (node2 != tPos) {
+        // reverse part
+        while (node2 != tPost) {
             next = node2.next;
             node2.next = node1;
             node1 = node2;
@@ -276,6 +277,42 @@ public class LinkedListQuestions {
             return head;
         }
         return node1;
+    }
+
+    /**
+     * Second way of reverse part linked list.
+     * <p>
+     * https://pic.leetcode-cn.com/3158b23f7e6919d47a11a2f57e921b5645fceb84212450336f2256f5659fa9e7.jpg
+     *
+     * @param head head
+     * @param m    start post
+     * @param n    end post
+     * @return new head
+     */
+    public Node reversePartList2(Node head, int m, int n) {
+        Node res = new Node(0);
+        res.next = head;
+
+        Node node = res;
+        for (int i = 1; i < m; i++) {
+            node = node.next;
+        }
+
+        // node.next is start of the part linked-list
+        Node nextHead = node.next;
+        Node next = null, prev = null;
+        // reverse the part
+        for (int i = m; i <= n; i++) {
+            next = nextHead.next;
+            nextHead.next = prev;
+            prev = nextHead;
+            nextHead = next;
+        }
+        // 将反转的起点 next 指向 next
+        node.next.next = next;
+        // 需要反转的那一段的上一个节点的 next 节点指向反转后链表的头结点
+        node.next = prev;
+        return res.next;
     }
 
     /**
