@@ -316,10 +316,68 @@ public class LinkedListQuestions {
     }
 
     /**
+     * No 6 of ch2: Josephus Kill problem
+     *
+     * <b>regular solution</b>
+     * <p>
+     * 时间复杂度 O(m*n) 时间复杂度高
+     *
+     * @param head head
+     * @param m    if is m,kill
+     * @return last node
+     */
+    public Node josephusKill(Node head, int m) {
+        if (head == null || head.next == head || m < 1) { return head; }
+
+        Node last = head;
+        // find the last node
+        while (last.next != head) { last = last.next; }
+
+        int cnt = 0;
+        while (head != last) {
+            if (++cnt == m) {
+                // remove the node
+                last.next = head.next;
+                cnt = 0; // start recount
+            } else {
+                last = last.next;
+            }
+            // if 执行完之后在进行 head 的复制 保持 head = last.next
+            head = last.next;
+        }
+        return head;
+    }
+
+    /** todo */
+    public Node josephusKillAdv(Node head, int m) {
+        if (head == null || head.next == head || m < 1) { return head; }
+
+        Node curr = head.next;
+        int tmp = 1;
+        // get length
+        while (curr != head) {
+            tmp++;
+            curr = curr.next;
+        }
+        tmp = getLive(tmp, m);
+        while (--tmp != 0) {
+            head = head.next;
+        }
+        // become loop
+        head.next = head;
+        return head;
+    }
+
+    private int getLive(int i, int m) {
+        if (i == 1) {return 1;}
+        return (getLive(i - 1, m) + m - 1) % i + 1;
+    }
+
+    /**
      * 单向链表 node
      */
     static class Node {
-        public int val;
+        public int  val;
         public Node next;
 
         public Node(int data) {
@@ -331,7 +389,7 @@ public class LinkedListQuestions {
      * 双向链表 node
      */
     static class DoubleNode {
-        public int val;
+        public int        val;
         public DoubleNode next;
         public DoubleNode prev;
 
