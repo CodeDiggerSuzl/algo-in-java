@@ -1,4 +1,4 @@
-package commonnodes;
+package nodes;
 
 /**
  * 双向链表节点
@@ -7,7 +7,7 @@ package commonnodes;
  * @date 2020/6/4 9:50 上午
  */
 public class DouListNode {
-    public int val;
+    public int         val;
     public DouListNode next;
     public DouListNode prev;
 

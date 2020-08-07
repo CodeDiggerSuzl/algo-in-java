@@ -1,6 +1,6 @@
 package leetcode.linkedlist;
 
-import commonnodes.ListNode;
+import nodes.ListNode;
 
 /**
  * LeetCode 链表优秀的问题

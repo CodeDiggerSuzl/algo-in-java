@@ -1,7 +1,10 @@
-package codinginterviewguide.linkedlist;
+package codeofbooks.codinginterviewguide.ch2linkedlist;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * 链表问题相关解答
+ * 第二章-链表问题相关解答
  *
  * @author Suz1
  * @date 2020/6/2 3:28 下午
@@ -9,10 +12,10 @@ package codinginterviewguide.linkedlist;
 public class LinkedListQuestions {
 
     /**
-     * ch2-No1
-     * 打印两个链表的公共部分
+     * No1-打印两个链表的公共部分
      *
      * <p></p>
+     * 思路: 1 小于 2, 1 向后移动, 反之亦然. 只有相同的时候才打印然后都向后移动.
      *
      * @param head1 链表 1 的头指针
      * @param head2 链表 2 的头指针
@@ -40,9 +43,7 @@ public class LinkedListQuestions {
      * @return The deleted Node
      */
     public Node removeLastKthNodeOfSinglyList(Node head, int lastKth) {
-        if (head == null || lastKth < 1) {
-            return head;
-        }
+        if (head == null || lastKth < 1) { return head; }
         Node cur = head;
         // 遍历一遍 k--
         while (cur != null) {
@@ -50,9 +51,8 @@ public class LinkedListQuestions {
             cur = cur.next;
         }
         // 恰好为 0;说明倒数为 list 长度和 K 相同
-        if (lastKth == 0) {
-            head = head.next;
-        }
+        if (lastKth == 0) { head = head.next; }
+
         //  小于 0 说明找到了,再次遍历,++k
         if (lastKth < 0) {
             cur = head;
@@ -374,6 +374,26 @@ public class LinkedListQuestions {
     }
 
     /**
+     * 复制含有随机指针的节点的链表,利用 map
+     */
+    public RandNode copyRandNodeListWithHashmap(RandNode head) {
+        Map<RandNode, RandNode> map = new HashMap<>(8);
+        RandNode curr = head;
+        // 遍历放入到 map
+        while (curr != null) {
+            map.put(curr, new RandNode(curr.value));
+            curr = curr.next;
+        }
+        curr = head;
+        while (curr != null) {
+            map.get(curr).next = map.get(curr.next);
+            map.get(curr).rand = map.get(curr.rand);
+            curr = curr.next;
+        }
+        return map.get(head);
+    }
+
+    /**
      * 单向链表 node
      */
     static class Node {
@@ -395,6 +415,17 @@ public class LinkedListQuestions {
 
         public DoubleNode(int data) {
             this.val = data;
+        }
+    }
+
+    /** 包含随机指针的节点 */
+    static class RandNode {
+        public int      value;
+        public RandNode next;
+        public RandNode rand;
+
+        public RandNode(int data) {
+            this.value = data;
         }
     }
 }

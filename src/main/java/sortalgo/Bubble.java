@@ -1,4 +1,4 @@
-package sort;
+package sortalgo;
 
 /**
  * @author Suz1
