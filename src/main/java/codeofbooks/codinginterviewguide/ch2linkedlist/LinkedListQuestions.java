@@ -1,5 +1,7 @@
 package codeofbooks.codinginterviewguide.ch2linkedlist;
 
+import lombok.Data;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ import java.util.Map;
 public class LinkedListQuestions {
 
     /**
-     * No1-打印两个链表的公共部分
+     * No1-打印两个有序链表的公共部分
      *
      * <p></p>
      * 思路: 1 小于 2, 1 向后移动, 反之亦然. 只有相同的时候才打印然后都向后移动.
@@ -43,7 +45,9 @@ public class LinkedListQuestions {
      * @return The deleted Node
      */
     public Node removeLastKthNodeOfSinglyList(Node head, int lastKth) {
-        if (head == null || lastKth < 1) { return head; }
+        if (head == null || lastKth < 1) {
+            return head;
+        }
         Node cur = head;
         // 遍历一遍 k--
         while (cur != null) {
@@ -51,7 +55,9 @@ public class LinkedListQuestions {
             cur = cur.next;
         }
         // 恰好为 0;说明倒数为 list 长度和 K 相同
-        if (lastKth == 0) { head = head.next; }
+        if (lastKth == 0) {
+            head = head.next;
+        }
 
         //  小于 0 说明找到了,再次遍历,++k
         if (lastKth < 0) {
@@ -75,7 +81,9 @@ public class LinkedListQuestions {
      * @return 新链表的 head
      */
     public DoubleNode rmLastKthNodeOfDoubleList(DoubleNode head, int lastKth) {
-        if (head == null || lastKth < 1) { return head; }
+        if (head == null || lastKth < 1) {
+            return head;
+        }
         DoubleNode curr = head;
         while (curr != null) {
             lastKth--;
@@ -187,7 +195,9 @@ public class LinkedListQuestions {
      * @return new head after reverse
      */
     public Node reverseSinglyList(Node head) {
-        if (head == null || head.next == null) { return head; }
+        if (head == null || head.next == null) {
+            return head;
+        }
         Node cur = head.next; // next is curr
         head.next = null;
         Node newNode = reverseSinglyList(cur);
@@ -327,11 +337,15 @@ public class LinkedListQuestions {
      * @return last node
      */
     public Node josephusKill(Node head, int m) {
-        if (head == null || head.next == head || m < 1) { return head; }
+        if (head == null || head.next == head || m < 1) {
+            return head;
+        }
 
         Node last = head;
         // find the last node
-        while (last.next != head) { last = last.next; }
+        while (last.next != head) {
+            last = last.next;
+        }
 
         int cnt = 0;
         while (head != last) {
@@ -348,9 +362,13 @@ public class LinkedListQuestions {
         return head;
     }
 
-    /** todo */
+    /**
+     * todo
+     */
     public Node josephusKillAdv(Node head, int m) {
-        if (head == null || head.next == head || m < 1) { return head; }
+        if (head == null || head.next == head || m < 1) {
+            return head;
+        }
 
         Node curr = head.next;
         int tmp = 1;
@@ -369,7 +387,9 @@ public class LinkedListQuestions {
     }
 
     private int getLive(int i, int m) {
-        if (i == 1) {return 1;}
+        if (i == 1) {
+            return 1;
+        }
         return (getLive(i - 1, m) + m - 1) % i + 1;
     }
 
@@ -397,7 +417,7 @@ public class LinkedListQuestions {
      * 单向链表 node
      */
     static class Node {
-        public int  val;
+        public int val;
         public Node next;
 
         public Node(int data) {
@@ -409,7 +429,7 @@ public class LinkedListQuestions {
      * 双向链表 node
      */
     static class DoubleNode {
-        public int        val;
+        public int val;
         public DoubleNode next;
         public DoubleNode prev;
 
@@ -418,9 +438,12 @@ public class LinkedListQuestions {
         }
     }
 
-    /** 包含随机指针的节点 */
+    /**
+     * 包含随机指针的节点
+     */
+    @Data
     static class RandNode {
-        public int      value;
+        public int value;
         public RandNode next;
         public RandNode rand;
 
