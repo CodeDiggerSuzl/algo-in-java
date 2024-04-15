@@ -1,4 +1,4 @@
-package leetcode.linkedlist;
+package leetcode.data_structure.linkedlist;
 
 import nodes.ListNode;
 
