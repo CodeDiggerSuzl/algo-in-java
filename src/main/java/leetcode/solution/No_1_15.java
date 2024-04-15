@@ -18,15 +18,10 @@ public class No_1_15 {
     public void test() {
         int[] arr = {-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4};// 1, -1, 0, 1
         System.out.println(threeSum2(arr));
-
-
-
-
     }
 
     //
     public List<List<Integer>> threeSum(int[] nums) {
-
         Arrays.sort(nums); // MUST SORT FIRST !!!
         System.out.println("Arrays.toString(nums) = " + Arrays.toString(nums));
         List<List<Integer>> ans = new ArrayList<>();
@@ -67,7 +62,6 @@ public class No_1_15 {
                 int rv = nums[r];
                 int sum = lv + mv + rv;
                 if (sum > 0) {
-
                     r--;
                     while (m < r && nums[r] == nums[r + 1]) {
                         r--;
