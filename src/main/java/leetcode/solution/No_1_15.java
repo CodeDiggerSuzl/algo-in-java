@@ -48,7 +48,6 @@ public class No_1_15 {
         }
         return ans;
     }
-
     public List<List<Integer>> threeSum2(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();
