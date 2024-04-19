@@ -22,4 +22,15 @@ public class CommonTest {
         ArrayList<String> list1 = new ArrayList<>();
         Assert.assertEquals(0, list1.size());
     }
+
+    public static void main(String[] args) {
+        int a = 0;
+        int b = 0;
+
+        int c = a++;
+        int d = ++b;
+
+        System.out.println("c = " + c);
+        System.out.println("d = " + d);
+    }
 }

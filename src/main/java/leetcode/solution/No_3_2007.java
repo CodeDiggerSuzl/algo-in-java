@@ -5,6 +5,8 @@ import annotion.Stocked;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * url
@@ -40,14 +42,58 @@ import java.util.Arrays;
 @Stocked
 public class No_3_2007 {
     public int[] findOriginalArray(int[] changed) {
+        int len = changed.length;
+        if (len % 2 != 0) {
+            return new int[]{};
+        }
+        Arrays.sort(changed);
 
-        return null;
+        int halfLen = len / 2;
+        int[] ans = new int[halfLen];
+        Map<Integer, Integer> cntMap = new HashMap<>(halfLen);
+        for (int value : changed) {
+            Integer cnt = cntMap.getOrDefault(value, 0);
+            cntMap.put(value, ++cnt);
+        }
+        int pairCnt = -1;
+        if (cntMap.containsKey(0)) {
+            Integer zeroCnt = cntMap.get(0);
+            if (zeroCnt % 2 == 0) {
+                for (int i = 0; i < zeroCnt / 2; i++) {
+                    ans[++pairCnt] = 0;
+                }
+            }
+        }
+
+        for (int num : changed) {
+            Integer cnt = cntMap.get(num);
+            if (num == 0) {
+                continue;
+            }
+            if (cnt == null || cnt == 0) continue;
+            int doubleKey = 2 * num;
+            Integer doubleCnt = cntMap.get(doubleKey);
+            if (doubleCnt == null) continue;
+
+            if (doubleCnt > 0) {
+                ans[++pairCnt] = num;
+                cntMap.put(doubleKey, doubleCnt - 1);
+                cntMap.put(num, cnt - 1);
+            }
+        }
+        if (pairCnt == halfLen - 1) {
+            return ans;
+        } else {
+            return new int[]{};
+        }
     }
 
 
     @Test
     public void test() {
-        int[] arr = {1, 3, 4, 2, 6, 8};
+        //                int[] arr = {0, 0,0,0};
+        int[] arr = {4, 4, 16, 20, 8, 8, 2, 10};
+        Arrays.sort(arr);
         int[] originalArray = findOriginalArray(arr);
         System.out.println("Arrays.toString(originalArray) = " + Arrays.toString(originalArray));
     }
