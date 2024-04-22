@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * url
- *
+ * <p>
  * <a href="https://leetcode.cn/problems/find-original-array-from-doubled-array/description/?envType=daily-question&envId=2024-04-18">...</a>
  * 一个整数数组 original 可以转变成一个 双倍 数组 changed ，转变方式为将 original 中每个元素 值乘以 2 加入数组中，然后将所有元素 随机打乱 。
  * <p>
@@ -41,6 +41,9 @@ import java.util.Map;
 @LongTime
 @Stocked
 public class No_3_2007 {
+    /**
+     * 自己的答案
+     */
     public int[] findOriginalArray(int[] changed) {
         int len = changed.length;
         if (len % 2 != 0) {
@@ -88,10 +91,37 @@ public class No_3_2007 {
         }
     }
 
+    /**
+     * 灵神的答案
+     */
+    public static int[] findOriginalArrayV2(int[] changed) {
+        Arrays.sort(changed);
+        System.out.println(Arrays.toString(changed));
+        int[] ans = new int[changed.length / 2];
+        int ansIdx = 0;
+        Map<Integer, Integer> cnt = new HashMap<>();
+        for (int x : changed) {
+            System.out.println("x:" + x + "  map:" + cnt);
+            if (!cnt.containsKey(x)) { // x 不是双倍后的元素
+                if (ansIdx == ans.length) {// 说明不是一半
+                    return new int[0];
+                }
+                ans[ansIdx++] = x;
+                cnt.merge(x * 2, 1, Integer::sum); // 标记一个双倍元素
+            } else { // x 是双倍后的元素
+                int c = cnt.merge(x, -1, Integer::sum); // 清除一个标记
+                if (c == 0) {
+                    cnt.remove(x);
+                }
+            }
+        }
+        return ans;
+    }
+
 
     @Test
     public void test() {
-        //                int[] arr = {0, 0,0,0};
+        // int[] arr = {0, 0,0,0};
         int[] arr = {4, 4, 16, 20, 8, 8, 2, 10};
         Arrays.sort(arr);
         int[] originalArray = findOriginalArray(arr);
