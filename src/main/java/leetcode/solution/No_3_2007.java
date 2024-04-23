@@ -101,7 +101,6 @@ public class No_3_2007 {
         int ansIdx = 0;
         Map<Integer, Integer> cnt = new HashMap<>();
         for (int x : changed) {
-            System.out.println("x:" + x + "  map:" + cnt);
             if (!cnt.containsKey(x)) { // x 不是双倍后的元素
                 if (ansIdx == ans.length) {// 说明不是一半
                     return new int[0];
@@ -122,9 +121,9 @@ public class No_3_2007 {
     @Test
     public void test() {
         // int[] arr = {0, 0,0,0};
-        int[] arr = {4, 4, 16, 20, 8, 8, 2, 10};
+        int[] arr = {4, 16, 20, 8, 2, 10};
         Arrays.sort(arr);
-        int[] originalArray = findOriginalArray(arr);
+        int[] originalArray = findOriginalArrayV2(arr);
         System.out.println("Arrays.toString(originalArray) = " + Arrays.toString(originalArray));
     }
 
