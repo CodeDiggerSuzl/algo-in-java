@@ -57,23 +57,26 @@ public class No_5_377 {
         }
     }
 
-    public void calV1_better(int[] nums, int target, Integer cnt) {
+    public void calV1_better(int[] nums, int target) {
         for (int num : nums) {
             if (num == target) {
-                ++cnt;
-                System.out.println("cnt = " + cnt);
+                cnt_out = cnt_out + 1;
+                System.out.println("cnt_out = " + cnt_out);
                 return;
             } else {
                 if (target > num) {
-                    calV1(nums, target - num, cnt);
+                    calV1_better(nums, target - num);
                 }
             }
         }
     }
 
+    private int cnt_out = 0;
     @Test
     public void testV1() {
-
+        int[] arr = {1, 2, 3};
+        calV1_better(arr,3);
+        System.out.println("cnt_out final = " + cnt_out);
     }
 
 
@@ -130,7 +133,7 @@ public class No_5_377 {
         Map<Integer, Integer> memo = new HashMap<>();
         long l = System.currentTimeMillis();
         int cal = calHelper(arr, 35, memo);
-        System.out.println((System.currentTimeMillis() - l) / 1000); // 很慢 输入为 4s
+        System.out.println((System.currentTimeMillis() - l) / 1000); // 很慢 输出为 4s
         System.out.println("---");
         System.out.println(cal);
     }

@@ -1,4 +1,4 @@
-package leetcode.solution;
+package leetcode.solution.k_sum;
 
 import java.util.Arrays;
 
@@ -7,7 +7,7 @@ import java.util.Arrays;
 // time: 90 min almost
 // tips: sort, remove duplicate, two-pointers
 // tag: K-Sum,two pointers
-public class No_2_16 {
+public class No_16_ThreeSumClosest {
     public int threeSumClosest(int[] nums, int target) {
         int gap = Integer.MAX_VALUE;
         int ans = 0;

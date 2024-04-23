@@ -1,4 +1,4 @@
-package leetcode.solution;
+package leetcode.solution.k_sum;
 
 import org.junit.Test;
 
@@ -12,7 +12,7 @@ import java.util.List;
 // tips: sort, remove duplicate, two-pointers
 // tag: K-Sum,two pointers
 
-public class No_1_15 {
+public class No_15_ThreeSum {
 
     @Test
     public void test() {

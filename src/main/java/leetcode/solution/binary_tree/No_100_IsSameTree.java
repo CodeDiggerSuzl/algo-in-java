@@ -1,6 +1,4 @@
-package leetcode.solution;
-
-import nodes.tree.TreeNode;
+package leetcode.solution.binary_tree;
 
 /**
  * https://leetcode.cn/problems/same-tree/?envType=study-plan-v2&envId=top-interview-150
@@ -8,7 +6,7 @@ import nodes.tree.TreeNode;
  *
  * 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
  */
-public class No_4_100 {
+public class No_100_IsSameTree {
 
 
     public boolean isSameTree(TreeNode p, TreeNode q) {
