@@ -40,7 +40,7 @@ import java.util.Map;
  */
 @LongTime
 @Stocked
-public class No_3_2007 {
+public class No_2007_FindOriginalArray {
     /**
      * 自己的答案
      */
