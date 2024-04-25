@@ -3,7 +3,7 @@ package leetcode.solution.binary_tree;
 import java.util.*;
 
 public class BinaryTreeBuilder {
-    public TreeNode buildTree(Integer[] array) {
+    public static TreeNode buildTree(Integer[] array) {
         if (array == null || array.length == 0 || array[0] == null) {
             return null;
         }
@@ -14,7 +14,6 @@ public class BinaryTreeBuilder {
 
         for (int i = 1; i < array.length; i += 2) {
             TreeNode current = queue.poll();
-
             if (array[i] != null) {
                 current.left = new TreeNode(array[i]);
                 queue.offer(current.left);
@@ -32,7 +31,7 @@ public class BinaryTreeBuilder {
     // TreeNode class definition goes here...
 
     public static void main(String[] args) {
-        Integer[] array = {1, 5, 3, null, 4, 10, 6, 9, 2};
+        Integer[] array = {1, null, 2, 3, 4, null, 5};
         BinaryTreeBuilder builder = new BinaryTreeBuilder();
         TreeNode root = builder.buildTree(array);
 
@@ -61,12 +60,12 @@ public class BinaryTreeBuilder {
                 level.add(node.val + "");
                 if (node.left != null) {
                     queue.offer(node.left);
-                }else{
+                } else {
                     queue.offer(null);
                 }
                 if (node.right != null) {
                     queue.offer(node.right);
-                }else {
+                } else {
                     queue.offer(null);
                 }
             }
