@@ -1,5 +1,7 @@
 package leetcode.solution.binary_tree;
 
+import leetcode.solution.binary_tree.common.TreeNode;
+
 import java.util.HashMap;
 import java.util.Map;
 

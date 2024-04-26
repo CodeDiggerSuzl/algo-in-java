@@ -1,10 +1,8 @@
-package leetcode.solution.binary_tree.util;
-
-import leetcode.solution.binary_tree.TreeNode;
+package leetcode.solution.binary_tree.common;
 
 import java.util.*;
 
-public class BinaryTreeBuilder {
+public class BTreeBuilder {
     public static TreeNode buildTree(Integer[] array) {
         if (array == null || array.length == 0 || array[0] == null) {
             return null;
@@ -34,7 +32,7 @@ public class BinaryTreeBuilder {
 
     public static void main(String[] args) {
         Integer[] array = {1, null, 2, 3, 4, null, 5};
-        BinaryTreeBuilder builder = new BinaryTreeBuilder();
+        BTreeBuilder builder = new BTreeBuilder();
         TreeNode root = builder.buildTree(array);
 
         printTree(root);

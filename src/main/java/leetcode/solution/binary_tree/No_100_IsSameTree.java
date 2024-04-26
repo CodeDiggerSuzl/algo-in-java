@@ -1,5 +1,7 @@
 package leetcode.solution.binary_tree;
 
+import leetcode.solution.binary_tree.common.TreeNode;
+
 /**
  * https://leetcode.cn/problems/same-tree/?envType=study-plan-v2&envId=top-interview-150
  * 给你两棵二叉树的根节点 p 和 q ，编写一个函数来检验这两棵树是否相同。

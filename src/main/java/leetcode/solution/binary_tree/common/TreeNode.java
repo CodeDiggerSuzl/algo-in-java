@@ -1,4 +1,4 @@
-package leetcode.solution.binary_tree;
+package leetcode.solution.binary_tree.common;
 
 public class TreeNode {
     public int val;
@@ -8,7 +8,7 @@ public class TreeNode {
     TreeNode() {
     }
 
-    TreeNode(int val) {
+    public TreeNode(int val) {
         this.val = val;
     }
 

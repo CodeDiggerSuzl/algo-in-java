@@ -1,7 +1,8 @@
 package leetcode.solution.binary_tree;
 
 import annotion.LongTime;
-import leetcode.solution.binary_tree.util.BinaryTreeBuilder;
+import leetcode.solution.binary_tree.common.BTreeBuilder;
+import leetcode.solution.binary_tree.common.TreeNode;
 import org.junit.Test;
 
 /**
@@ -93,7 +94,7 @@ public class No_111_MinDepth {
     public void testDfs() {
         Integer[] arr = {3, 9, 20, null, null, 15, 7};
         //        Integer[] arr = {2, null, 3, null, 4, null, 5, null, 6};
-        TreeNode treeNode = BinaryTreeBuilder.buildTree(arr);
+        TreeNode treeNode = BTreeBuilder.buildTree(arr);
         System.out.println("minDepth_2(treeNode) = " + minDepth_2(treeNode));
     }
 
