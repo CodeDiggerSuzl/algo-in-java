@@ -1,7 +1,7 @@
 package leetcode.solution.binary_tree;
 
 import annotion.LongTime;
-import leetcode.solution.binary_tree.common.BTreeBuilder;
+import leetcode.solution.binary_tree.common.BTreeUtil;
 import leetcode.solution.binary_tree.common.TreeNode;
 import org.junit.Test;
 
@@ -88,13 +88,11 @@ public class No_111_MinDepth {
     }
 
     // 答案:https://leetcode.cn/problems/minimum-depth-of-binary-tree/solutions/2730984/liang-chong-fang-fa-zi-ding-xiang-xia-zi-0sxz
-
-
     @Test
     public void testDfs() {
         Integer[] arr = {3, 9, 20, null, null, 15, 7};
         //        Integer[] arr = {2, null, 3, null, 4, null, 5, null, 6};
-        TreeNode treeNode = BTreeBuilder.buildTree(arr);
+        TreeNode treeNode = BTreeUtil.buildTree(arr);
         System.out.println("minDepth_2(treeNode) = " + minDepth_2(treeNode));
     }
 

@@ -33,7 +33,7 @@ import java.util.Map;
  * 输入：nums = [9], target = 3
  * 输出：0
  */
-public class No_5_377 {
+public class No_377 {
 
     public int combinationSum4(int[] nums, int target) {
         int cnt = 0; // 输出的 cnt 永远为 0,忘记了 Java 值传递的特点

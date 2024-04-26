@@ -1,6 +1,6 @@
 package leetcode.solution.binary_tree;
 
-import leetcode.solution.binary_tree.common.BTreeBuilder;
+import leetcode.solution.binary_tree.common.BTreeUtil;
 import leetcode.solution.binary_tree.common.TreeNode;
 import org.junit.Test;
 
@@ -53,7 +53,7 @@ public class No_104_MaxDepth {
     @Test
     public void testDfs() {
         Integer[] arr = {3, 9, 20, null, null, 15, 7};
-        TreeNode treeNode = BTreeBuilder.buildTree(arr);
+        TreeNode treeNode = BTreeUtil.buildTree(arr);
         System.out.println("maxDepth_2(treeNode) = " + maxDepth_2(treeNode));
     }
 

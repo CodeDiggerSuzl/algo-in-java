@@ -2,7 +2,7 @@ package leetcode.solution.binary_tree.common;
 
 import java.util.*;
 
-public class BTreeBuilder {
+public class BTreeUtil {
     public static TreeNode buildTree(Integer[] array) {
         if (array == null || array.length == 0 || array[0] == null) {
             return null;
@@ -24,7 +24,7 @@ public class BTreeBuilder {
                 queue.offer(current.right);
             }
         }
-
+        BTreePrinter.printTree(root);
         return root;
     }
 
@@ -32,11 +32,10 @@ public class BTreeBuilder {
 
     public static void main(String[] args) {
         Integer[] array = {1, null, 2, 3, 4, null, 5};
-        BTreeBuilder builder = new BTreeBuilder();
+        BTreeUtil builder = new BTreeUtil();
         TreeNode root = builder.buildTree(array);
-
-        printTree(root);
-
+        //        levelOrderPrintTree(root);
+        BTreePrinter.printTree(root);
     }
 
     public static List<List<String>> levelOrder(TreeNode root) {
@@ -76,7 +75,7 @@ public class BTreeBuilder {
     }
 
 
-    public static void printTree(TreeNode root) {
+    public static void levelOrderPrintTree(TreeNode root) {
         List<List<String>> lines = new ArrayList<>();
         List<TreeNode> level = new ArrayList<>();
         Queue<TreeNode> queue = new LinkedList<>();
