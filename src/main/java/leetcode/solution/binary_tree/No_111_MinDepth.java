@@ -1,6 +1,7 @@
 package leetcode.solution.binary_tree;
 
 import annotion.LongTime;
+import leetcode.solution.binary_tree.util.BinaryTreeBuilder;
 import org.junit.Test;
 
 /**

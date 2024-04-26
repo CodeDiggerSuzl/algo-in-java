@@ -1,4 +1,6 @@
-package leetcode.solution.binary_tree;
+package leetcode.solution.binary_tree.util;
+
+import leetcode.solution.binary_tree.TreeNode;
 
 import java.util.*;
 

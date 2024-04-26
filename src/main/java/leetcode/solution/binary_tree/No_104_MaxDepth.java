@@ -1,8 +1,7 @@
 package leetcode.solution.binary_tree;
 
+import leetcode.solution.binary_tree.util.BinaryTreeBuilder;
 import org.junit.Test;
-
-import java.util.Arrays;
 
 /**
  * <a href="https://leetcode.cn/problems/maximum-depth-of-binary-tree/description/">...</a>*
