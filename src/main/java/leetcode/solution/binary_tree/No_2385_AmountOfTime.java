@@ -1,5 +1,8 @@
 package leetcode.solution.binary_tree;
 
+import annotion.LongTime;
+import annotion.Stocked;
+import annotion.ToDo;
 import leetcode.solution.binary_tree.common.TreeNode;
 
 import java.util.HashMap;
@@ -16,6 +19,9 @@ import java.util.Map;
  * 节点与一个已感染节点相邻。
  * 返回感染整棵树需要的分钟数。
  */
+@LongTime
+@Stocked(cause = "没有想到[1,null,2,3,4,null,5] start=4这种情况")
+@ToDo(doWhat = "做相关的题.写出题解.梳理思路")
 public class No_2385_AmountOfTime {
 
     /**
@@ -106,7 +112,7 @@ public class No_2385_AmountOfTime {
 
     /*--------------------------------------------------------------------------------------------------------------*/
     // 上面的答案对 输入：root = [1,5,3,null,4,10,6,9,2], start = 3 这种情况好使
-    // 但是对 [1,null,2,3,4,null,5] strat=4 这种情况不好使,因为最深节点和感染点都是 root 的右子树
+    // 但是对 [1,null,2,3,4,null,5] start=4 这种情况不好使,因为最深节点和感染点都是 root 的右子树
     // 应该的思路获取是遍历每一个 node,获取 node 到感染点的距离,
     /*--------------------------------------------------------------------------------------------------------------*/
 

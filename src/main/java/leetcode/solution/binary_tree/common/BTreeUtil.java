@@ -3,6 +3,13 @@ package leetcode.solution.binary_tree.common;
 import java.util.*;
 
 public class BTreeUtil {
+
+    public static TreeNode createTree(String s) {
+        Integer[] arr = deserializeStringToArray(s);
+        return buildTree(arr);
+    }
+
+
     public static TreeNode buildTree(Integer[] array) {
         if (array == null || array.length == 0 || array[0] == null) {
             return null;
@@ -138,6 +145,23 @@ public class BTreeUtil {
             }
         }
         return true;
+    }
+
+
+    public static Integer[] deserializeStringToArray(String input) {
+        input = input.substring(1, input.length() - 1);
+        String[] split = input.split(",");
+        List<Integer> result = new ArrayList<>();
+        for (int i = 0; i < split.length ; i++) {
+            String s = split[i];
+            System.out.println("s = " + s);
+            if ("null".equals(s)) {
+                result.add(null);
+            } else {
+                result.add(Integer.valueOf(s));
+            }
+        }
+        return result.toArray(new Integer[0]);
     }
 
 }
