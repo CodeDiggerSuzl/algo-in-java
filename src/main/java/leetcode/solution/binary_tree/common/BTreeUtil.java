@@ -152,9 +152,8 @@ public class BTreeUtil {
         input = input.substring(1, input.length() - 1);
         String[] split = input.split(",");
         List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < split.length ; i++) {
+        for (int i = 0; i < split.length; i++) {
             String s = split[i];
-            System.out.println("s = " + s);
             if ("null".equals(s)) {
                 result.add(null);
             } else {
