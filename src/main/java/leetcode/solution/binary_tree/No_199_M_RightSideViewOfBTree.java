@@ -1,7 +1,9 @@
-package leetcode.solution.binary_tree.common;
+package leetcode.solution.binary_tree;
 
 import annotion.PASS;
 import annotion.ToDo;
+import leetcode.solution.binary_tree.common.BTreeUtil;
+import leetcode.solution.binary_tree.common.TreeNode;
 import org.junit.Test;
 
 import java.util.ArrayList;
