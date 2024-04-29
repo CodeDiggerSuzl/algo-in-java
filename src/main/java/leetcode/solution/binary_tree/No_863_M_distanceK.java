@@ -72,4 +72,39 @@ public class No_863_M_distanceK {
     }
 
 
+    private void dfs(TreeNode node, int depth, List<Integer> result) {
+        if (node == null) return;
+        if (depth == 0) {
+            result.add(node.val);
+            return;
+        }
+        dfs(node.left, depth - 1, result);
+        dfs(node.right, depth - 1, result);
+    }
+
+    /**
+     * 要找出二叉树中距离特定节点为 2 的其他节点，可以采取以下步骤：
+     * <p>
+     * 从给定的特定节点开始，向上搜索到距离为 1 的父节点和距离为 1 的兄弟节点。
+     * 从这些父节点和兄弟节点开始，向下搜索，距离为 2 的节点即为所求节点。
+     */
+    private int findParentAndSibling(TreeNode root, TreeNode target, int k, List<Integer> result) {
+        if (root == null) return -1;
+        if (root == target) return 0;
+
+        int left = findParentAndSibling(root.left, target, k, result);
+        int right = findParentAndSibling(root.right, target, k, result);
+
+        if (left != -1) {
+            if (left + 1 == k) result.add(root.val);
+            else dfs(root.right, k - left - 2, result);
+            return left + 1;
+        }
+        if (right != -1) {
+            if (right + 1 == k) result.add(root.val);
+            else dfs(root.left, k - right - 2, result);
+            return right + 1;
+        }
+        return -1;
+    }
 }

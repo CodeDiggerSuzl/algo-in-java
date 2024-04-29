@@ -1,6 +1,5 @@
 package leetcode.solution.binary_tree;
 
-import leetcode.solution.binary_tree.common.BTreePrinter;
 import leetcode.solution.binary_tree.common.BTreeUtil;
 import leetcode.solution.binary_tree.common.TreeNode;
 import org.junit.Test;
