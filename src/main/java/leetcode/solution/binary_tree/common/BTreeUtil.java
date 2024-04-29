@@ -39,8 +39,7 @@ public class BTreeUtil {
 
     public static void main(String[] args) {
         Integer[] array = {1, null, 2, 3, 4, null, 5};
-        BTreeUtil builder = new BTreeUtil();
-        TreeNode root = builder.buildTree(array);
+        TreeNode root = BTreeUtil.buildTree(array);
         //        levelOrderPrintTree(root);
         BTreePrinter.printTree(root);
     }

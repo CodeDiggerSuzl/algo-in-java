@@ -5,27 +5,32 @@ import annotion.Stocked;
 import annotion.ToDo;
 import leetcode.solution.binary_tree.common.BTreeUtil;
 import leetcode.solution.binary_tree.common.TreeNode;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
  * [name]:
+ * <p>
  * [link]:
+ * <p>
  * [description]:
  * 给你一棵二叉树的根节点，返回该树的直径 。
  * 二叉树的 直径 是指树中任意两个节点之间最长路径的 长度 。这条路径可能经过也可能不经过根节点 root 。
  * 两节点之间路径的 长度 由它们之间边数表示。
- * 1
- * / \
- * /   \
- * 2   3
+ *    1
+ *   / \
+ *  2   3
  * / \
  * 4 5
+ * <p>
  * [category]: 二叉树
+ * <p>
  * [solving tips]: 无法仅仅通过递归去做, 是通过递归和遍历结合的方法
  */
 @Stocked
 @LongTime
 @ToDo(doWhat = "重新梳理思路")
+@Slf4j
 public class No_543_MaxDiameterOfBTree {
 
 
@@ -66,6 +71,7 @@ public class No_543_MaxDiameterOfBTree {
 
     @Test
     public void test() {
+        log.info("---111-");
         TreeNode node = BTreeUtil.createTree("[1,2,3,4,5]");
         System.out.println("diameterOfBinaryTree(node) = " + diameterOfBinaryTree(node));
     }
