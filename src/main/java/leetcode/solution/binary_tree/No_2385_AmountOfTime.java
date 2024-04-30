@@ -3,7 +3,11 @@ package leetcode.solution.binary_tree;
 import annotion.LongTime;
 import annotion.Stocked;
 import annotion.ToDo;
+import leetcode.solution.binary_tree.common.BTreeUtil;
 import leetcode.solution.binary_tree.common.TreeNode;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
+import utils.JsonUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +26,7 @@ import java.util.Map;
 @LongTime
 @Stocked(cause = "没有想到[1,null,2,3,4,null,5] start=4这种情况")
 @ToDo(doWhat = "做相关的题.写出题解.梳理思路")
+@Slf4j
 public class No_2385_AmountOfTime {
 
     /**
@@ -124,4 +129,66 @@ public class No_2385_AmountOfTime {
     // 2385. 感染二叉树需要的总时间 https://leetcode.cn/problems/amount-of-time-for-binary-tree-to-be-infected/description/?envType=daily-question&envId=2024-04-24
     // 然后在做:
     // 863. 二叉树中所有距离为 K 的结点
+
+    @Test
+    public void test() {
+
+        TreeNode tree = BTreeUtil.createTree("[1,2,3,4,5]");
+        putIntoMap(tree, 2);
+        log.debug("map={}", JsonUtil.toJson(map_V));
+        log.debug("target={}", JsonUtil.toJson(target));
+        System.out.println("maxDistance(target,map.get(target)) = " + maxDistance(target, map.get(target)));
+    }
+
+
+    Map<TreeNode, TreeNode> map = new HashMap();
+    Map<Integer, Integer> map_V = new HashMap();
+    TreeNode target;
+
+    public void putIntoMap(TreeNode root, int start) {
+        if (root == null) {
+            return;
+        }
+        if (root.left != null) {
+            map.put(root.left, root);
+            map_V.put(root.left.val, root.val);
+        }
+        if (root.right != null) {
+            map.put(root.right, root);
+            map_V.put(root.right.val, root.val);
+
+        }
+        if (root.val == start) {
+            target = root;
+        }
+        putIntoMap(root.left, start);
+        putIntoMap(root.right, start);
+    }
+
+
+    int ans = 0;
+
+    public int maxDistance(TreeNode node, TreeNode parent) {
+        if (node == null) {
+            return 0;
+        }
+        if (parent == null) {
+            int dis_r = maxDistance(node.right, node);
+            int dis_l = maxDistance(node.left, node);
+            return Math.max(dis_l, dis_r) + 1;
+        }
+        if (parent.left == node) {
+            int dis_p = maxDistance(parent, map.get(parent));
+            int dis_r = maxDistance(parent.right, parent);
+            return Math.max(dis_r, dis_p) + 1;
+        }
+        if (parent.right == node) {
+            int dis_l = maxDistance(parent.left, parent);
+            int dis_p = maxDistance(parent, map.get(parent));
+            return Math.max(dis_l, dis_p) + 1;
+        }
+        return -1;
+
+    }
+
 }

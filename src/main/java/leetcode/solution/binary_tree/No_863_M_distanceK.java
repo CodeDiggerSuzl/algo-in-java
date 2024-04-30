@@ -96,8 +96,11 @@ public class No_863_M_distanceK {
         int right = findParentAndSibling(root.right, target, k, result);
 
         if (left != -1) {
-            if (left + 1 == k) result.add(root.val);
-            else dfs(root.right, k - left - 2, result);
+            if (left + 1 == k) {
+                result.add(root.val);
+            } else {
+                dfs(root.right, k - left - 2, result);
+            }
             return left + 1;
         }
         if (right != -1) {
