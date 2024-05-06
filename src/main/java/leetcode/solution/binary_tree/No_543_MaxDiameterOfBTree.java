@@ -71,6 +71,7 @@ public class No_543_MaxDiameterOfBTree {
     }
 
 
+
     @Test
     public void test() {
         TreeNode node = BTreeUtil.createTree("[1,2,3,4,5]");

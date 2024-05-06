@@ -7,25 +7,32 @@ import leetcode.solution.binary_tree.common.BTreeUtil;
 import leetcode.solution.binary_tree.common.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import utils.JsonUtil;
 
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
- * <a href="https://leetcode.cn/problems/amount-of-time-for-binary-tree-to-be-infected/description/?envType=daily-question&envId=2024-04-24">2385. 感染二叉树需要的总时间 - 力扣（LeetCode）</a>
+ * [name]:2385. 感染二叉树需要的总时间
  * <p>
- * 给你一棵二叉树的根节点 root ，二叉树中节点的值 互不相同 。另给你一个整数 start 。在第 0 分钟，感染 将会从值为 start 的节点开始爆发。
+ * [link]: <a href="https://leetcode.cn/problems/amount-of-time-for-binary-tree-to-be-infected/description/?envType=daily-question&envId=2024-04-24">link</a>
+ * <p>
+ * [description]: 给你一棵二叉树的根节点 root ，二叉树中节点的值 互不相同 。另给你一个整数 start 。在第 0 分钟，感染 将会从值为 start 的节点开始爆发。
  * <p>
  * 每分钟，如果节点满足以下全部条件，就会被感染：
  * <p>
  * 节点此前还没有感染。
  * 节点与一个已感染节点相邻。
  * 返回感染整棵树需要的分钟数。
- *
- *
- * 思路:
- * 1. 记录每个节点的父节点,然后做 dfs,类似于三叉树的最大深度
+ * <p>
+ * [category]: 二叉树
+ * <p>
+ * [solving tips]:
+ * <p>
+ * 方法 1: 记录父节点+DFS. 遍历一遍树,找到目标节点:target,同时记录每个节点的父节点. 然后做 从 target 节点开始做 dfs,类似于三叉树的最大深度
+ * <p>
+ * 方法 2: TODo
+ * [answers]: <a href="https://leetcode.cn/problems/amount-of-time-for-binary-tree-to-be-infected/solutions/2753470/cong-liang-ci-bian-li-dao-yi-ci-bian-li-tmt0x/?envType=daily-question&envId=2024-04-24">ans</a>
  */
 @LongTime
 @Stocked(cause = "没有想到[1,null,2,3,4,null,5] start=4这种情况")
@@ -134,22 +141,26 @@ public class No_2385_AmountOfTime {
     // 然后在做:
     // 863. 二叉树中所有距离为 K 的结点
 
-    @Test
-    public void test() {
-
-        TreeNode tree = BTreeUtil.createTree("[1,2,3,4,5]");
-        putIntoMap(tree, 2);
-        log.debug("map={}", JsonUtil.toJson(map_V));
-        log.debug("target={}", JsonUtil.toJson(target));
-        System.out.println("maxDistance(target,map.get(target)) = " + maxDistance(target, map.get(target)));
-    }
-
 
     Map<TreeNode, TreeNode> map = new HashMap();
     Map<Integer, Integer> map_V = new HashMap();
     TreeNode target;
 
-    public void putIntoMap(TreeNode root, int start) {
+    @Test
+    public void test() {
+        TreeNode tree = BTreeUtil.createTree("[1,5,3,null,4,10,6,9,2]");
+        findTargetNode(tree, 3);
+        // log.debug("map={}", JsonUtil.toJson(map_V));
+        //        log.debug("target={}", JsonUtil.toJson(target));
+        System.out.println("maxDistance(target,map.get(target)) = " + maxDistance_V2(target, target));
+    }
+
+    // 正确答案在此 ✅
+
+    /**
+     * 记录每个节点的父节点
+     */
+    public void findTargetNode(TreeNode root, int start) {
         if (root == null) {
             return;
         }
@@ -160,47 +171,36 @@ public class No_2385_AmountOfTime {
         if (root.right != null) {
             map.put(root.right, root);
             map_V.put(root.right.val, root.val);
-
         }
         if (root.val == start) {
             target = root;
         }
-        putIntoMap(root.left, start);
-        putIntoMap(root.right, start);
+        findTargetNode(root.left, start);
+        findTargetNode(root.right, start);
     }
 
-
-    int ans = 0;
 
     /**
-     * 这个方法不对
+     * 这个方法是对的
+     * 通过第一步
+     * 从树某个点开始最大的距离
      */
-    @Deprecated
-    public int maxDistance(TreeNode node, TreeNode parent) {
+    public int maxDistance_V2(TreeNode node, TreeNode from) {
         if (node == null) {
-            return 0;
+            return -1;
         }
-        if (parent == null) {
-            int dis_r = maxDistance(node.right, node);
-            int dis_l = maxDistance(node.left, node);
-            return Math.max(dis_l, dis_r) + 1;
+        int res = -1;
+        if (node.left != from) {
+            res = Math.max(res, maxDistance_V2(node.left, node));
         }
-        if (parent.left == node) {
-            int dis_p = maxDistance(parent, map.get(parent));
-            int dis_r = maxDistance(parent.right, parent);
-            return Math.max(dis_r, dis_p) + 1;
-        }
-        if (parent.right == node) {
-            int dis_l = maxDistance(parent.left, parent);
-            int dis_p = maxDistance(parent, map.get(parent));
-            return Math.max(dis_l, dis_p) + 1;
-        }
-        return -1;
 
-    }
-
-    public int maxDepth(TreeNode node, TreeNode from) {
-
+        if (node.right != from) {
+            res = Math.max(res, maxDistance_V2(node.right, node));
+        }
+        if (map.get(node) != from) {
+            res = Math.max(res, maxDistance_V2(map.get(node), node));
+        }
+        return res + 1;
     }
 
 }
