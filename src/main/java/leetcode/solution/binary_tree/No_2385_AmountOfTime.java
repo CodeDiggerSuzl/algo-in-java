@@ -22,6 +22,10 @@ import java.util.Map;
  * 节点此前还没有感染。
  * 节点与一个已感染节点相邻。
  * 返回感染整棵树需要的分钟数。
+ *
+ *
+ * 思路:
+ * 1. 记录每个节点的父节点,然后做 dfs,类似于三叉树的最大深度
  */
 @LongTime
 @Stocked(cause = "没有想到[1,null,2,3,4,null,5] start=4这种情况")
@@ -168,6 +172,10 @@ public class No_2385_AmountOfTime {
 
     int ans = 0;
 
+    /**
+     * 这个方法不对
+     */
+    @Deprecated
     public int maxDistance(TreeNode node, TreeNode parent) {
         if (node == null) {
             return 0;
@@ -188,6 +196,10 @@ public class No_2385_AmountOfTime {
             return Math.max(dis_l, dis_p) + 1;
         }
         return -1;
+
+    }
+
+    public int maxDepth(TreeNode node, TreeNode from) {
 
     }
 
