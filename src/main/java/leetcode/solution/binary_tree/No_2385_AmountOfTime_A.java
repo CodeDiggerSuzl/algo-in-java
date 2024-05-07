@@ -7,6 +7,7 @@ import leetcode.solution.binary_tree.common.BTreeUtil;
 import leetcode.solution.binary_tree.common.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import utils.JsonUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +39,7 @@ import java.util.Map;
 @Stocked(cause = "没有想到[1,null,2,3,4,null,5] start=4这种情况")
 @ToDo(doWhat = "做相关的题.写出题解.梳理思路")
 @Slf4j
-public class No_2385_AmountOfTime {
+public class No_2385_AmountOfTime_A {
 
     /**
      * 本质求得是每个节点最大的"半径"?
@@ -201,6 +202,50 @@ public class No_2385_AmountOfTime {
             res = Math.max(res, maxDistance_V2(map.get(node), node));
         }
         return res + 1;
+    }
+
+    @Test
+    public void test_method_2() {
+        TreeNode tree = BTreeUtil.createTree("[1,2,null,3,null,4,null,5]");
+        dfsOnce(tree, 4);
+        System.out.println("ans = " + ans);
+
+    }
+
+    int ans;
+
+    /**
+     * 后序遍历:
+     * 递归时，除了返回当前子树的最大链长加一，还需要返回一个布尔值，表示当前子树是否包含 start
+     * 将问题拆分成求 一个树的深度和最大直径的问题
+     */
+    public int[] dfsOnce(TreeNode node, int start) {
+
+        if (node == null) {
+            return new int[]{0, 0};
+        }
+        int[] leftRes = dfsOnce(node.left, start);
+        int[] rightRes = dfsOnce(node.right, start);
+        log.debug("processing node={}", node.val);
+        log.debug("node={},左边返回={},右边返回={}", node.val, JsonUtil.toJson(leftRes), JsonUtil.toJson(rightRes));
+        int lLen = leftRes[0], rLen = rightRes[0], lFound = leftRes[1], rFound = rightRes[1];
+
+        // 如果找到了目标节点
+        if (node.val == start) {
+            // 结果设置为以 start 为 root节点的树的最大深度
+            ans = Math.max(lLen, rLen);
+            // 返回的以 start 节点作为叶子的深度, 第一个 1 表示深度,第二个 1 表示找到了
+            return new int[]{1, 1};
+        }
+
+        // 当 start 节点为子节点,而不是整个树的root节点的时候,才更新答案
+        if (lFound == 1 || rFound == 1) {
+            ans = Math.max(ans, lLen + rLen);
+            int which = lFound == 1 ? lLen : rLen;
+            return new int[]{which + 1, 1};
+        }
+        // 当 start 节点为子树的 root 节点,此时就是求树的深度
+        return new int[]{Math.max(lLen, rLen) + 1, 0};
     }
 
 }
