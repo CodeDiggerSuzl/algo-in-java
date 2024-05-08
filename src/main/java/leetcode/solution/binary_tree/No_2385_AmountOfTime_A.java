@@ -246,7 +246,8 @@ public class No_2385_AmountOfTime_A {
             int which = lFound == 1 ? lLen : rLen;
             return new int[]{which + 1, 1};
         }
-        // 当 start 节点为子树的 root 节点,此时就是求树的深度
+        // 其他情况:当 start 节点为子树的 root 节点或者没有start节点的关系,此时就是求树的深度
+        // 未找到 target 节点的情况
         return new int[]{Math.max(lLen, rLen) + 1, 0};
     }
 
