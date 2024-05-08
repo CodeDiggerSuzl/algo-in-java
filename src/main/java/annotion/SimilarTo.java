@@ -11,9 +11,7 @@ import static java.lang.annotation.ElementType.TYPE;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = {CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE})
-public @interface LongTime {
-
-    String spentTime() default "";
+public @interface SimilarTo {
+    String[] value();
 
 }
-

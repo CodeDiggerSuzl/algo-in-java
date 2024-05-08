@@ -1,6 +1,7 @@
 package leetcode.solution.binary_tree;
 
 import annotion.LongTime;
+import annotion.SimilarTo;
 import annotion.Stocked;
 import annotion.ToDo;
 import leetcode.solution.binary_tree.common.BTreeUtil;
@@ -39,6 +40,7 @@ import java.util.Map;
 @Stocked(cause = "没有想到[1,null,2,3,4,null,5] start=4这种情况")
 @ToDo(doWhat = "做相关的题.写出题解.梳理思路")
 @Slf4j
+@SimilarTo({"863"})
 public class No_2385_AmountOfTime_A {
 
     /**
