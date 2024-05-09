@@ -8,6 +8,11 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 此题和 112 类似 129, 1448 类似,都是要把数值或者节点往下传.
+ * <p>
+ * 唯一需要注意的是: 每次传入的话,左子树和右子树都要各传入一个新的 ArrayList,而不是共用同一个.
+ */
 @Slf4j
 public class No_113_PathSumII {
 
@@ -54,7 +59,7 @@ public class No_113_PathSumII {
         //        dfs(node.right, diff, list);
 
         // ! 应该左子树和 和右子树都使用新的 list
-        dfs(node.left, diff, new ArrayList<>(preList)); // 子这里
+        dfs(node.left, diff, new ArrayList<>(preList)); // 在这这里
         dfs(node.right, diff, new ArrayList<>(preList));
     }
 
