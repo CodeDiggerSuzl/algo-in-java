@@ -19,7 +19,7 @@ import org.junit.Test;
  * <p>
  * [category]:
  * <p>
- * [solving tips]:
+ * [solving tips]: 注意最后要加括号👇🏻
  */
 @Slf4j
 public class No_1448_M_GoodNodesInBTree {
