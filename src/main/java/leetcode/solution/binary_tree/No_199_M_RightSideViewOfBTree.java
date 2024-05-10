@@ -19,7 +19,7 @@ import java.util.List;
  *
  */
 @PASS(tips = "遍历树,dfs,先遍历右数")
-@ToDo(doWhat = "使用层次遍历解决该问题")
+@ToDo(value = "使用层次遍历解决该问题")
 public class No_199_M_RightSideViewOfBTree {
 
     private int maxLevel = 0;

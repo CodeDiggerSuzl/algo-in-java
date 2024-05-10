@@ -5,10 +5,7 @@ import leetcode.solution.binary_tree.common.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * [name]: 102. 二叉树的层序遍历
@@ -27,14 +24,12 @@ import java.util.Queue;
 @Slf4j
 public class No_102_M_LevelOrderBTree {
 
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> levelOrder_1(TreeNode root) {
         levelTraverse(root);
         return ans;
     }
 
     List<List<Integer>> ans = new ArrayList<>();
-
-    Queue<TreeNode> q = new LinkedList<>();
 
     void levelTraverse(TreeNode root) {
         if (root == null) return;
@@ -64,16 +59,16 @@ public class No_102_M_LevelOrderBTree {
         }
     }
 
-
     @Test
     public void test_1() {
         TreeNode node = BTreeUtil.createTree("[3,9,20,null,null,15,7]");
-        levelOrder(node);
+        levelOrder_1(node);
         System.out.println("ans = " + ans);
 
     }
 
-    public void levelOrder_(TreeNode node) {
+    /* ----------------------------------------------- 上面是形式 1 ----------------------------------------------- */
+    public void levelOrder_2(TreeNode node) {
         if (node == null) {
             return;
         }
@@ -98,6 +93,72 @@ public class No_102_M_LevelOrderBTree {
     @Test
     public void test_2() {
         TreeNode node = BTreeUtil.createTree("[3,9,20,null,null,15,7]");
-        levelOrder_(node);
+        levelOrder_2(node);
     }
+
+    /* ----------------------------------------------- 上面是形式 2 ----------------------------------------------- */
+
+    public List<List<Integer>> levelOrder_3(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            List<Integer> tmp = new ArrayList<>();
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                tmp.add(node.val);
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+            ans.add(tmp);
+        }
+        return ans;
+    }
+
+    @Test
+    public void test_3() {
+        TreeNode node = BTreeUtil.createTree("[3,9,20,null,null,15,7]");
+        System.out.println("levelOrder_3(node) = " + levelOrder_3(node));
+    }
+
+    /* ----------------------------------------------- 下面是递归的方式 ----------------------------------------------- */
+    List<List<Integer>> list = new ArrayList<>();
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        dns(root, 0);
+        return list;
+    }
+
+    public void dns(TreeNode node, int level) {
+        if (node == null) {
+            return;
+        }
+        log.debug("node = {},level={},list={}", node.val, level, list);
+        if (list.size() == level) {
+            // 第一次处理每一层的时候,加入一个空 list
+            list.add(new ArrayList<>());
+        }
+
+        // 当为特定层时,放入 node
+        list.get(level).add(node.val);
+
+        dns(node.left, level + 1);
+        dns(node.right, level + 1);
+        Collections.reverse(list);
+    }
+
+    @Test
+    public void test_4() {
+        TreeNode node = BTreeUtil.createTree("[3,9,20,null,null,15,7]");
+        List<List<Integer>> lists = levelOrder(node);
+    }
+
 }

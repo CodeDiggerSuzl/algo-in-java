@@ -12,6 +12,6 @@ import static java.lang.annotation.ElementType.*;
 @Target(value = {CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE})
 public @interface ToDo {
 
-    String doWhat() default "";
+    String value() default "";
 
 }

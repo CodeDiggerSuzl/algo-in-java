@@ -32,7 +32,7 @@ import java.util.Map;
  */
 @Slf4j
 @SimilarTo({"2385"})
-@ToDo(doWhat = "一遍历的情况")
+@ToDo(value = "一遍历的情况")
 public class No_863_M_distanceK {
 
     List<Integer> ans = new ArrayList<>();
@@ -104,55 +104,55 @@ public class No_863_M_distanceK {
 
     @Stocked
     /*-------------------------------------------------方法 2-------------------------------------------------------------*/
-//    public List<Integer> distanceK_2(TreeNode root, int target, int k) {
-//        dfsOnce(root, target, k);
-//        System.out.println("ans = " + ans);
-//        return ans;
-//    }
-//
-//    int maxLen;
-//    public int[] dfsOnce(TreeNode node, Integer targetVal, int k) {
-//        if (node == null) {
-//            return new int[]{0, 0};
-//        }
-//        int[] leftRes = dfsOnce(node.left, targetVal,k);
-//        int[] rightRes = dfsOnce(node.right, targetVal,k);
-//        log.debug("processing node={}", node.val);
-//        log.debug("node={},左边返回={},右边返回={}", node.val, JsonUtil.toJson(leftRes), JsonUtil.toJson(rightRes));
-//        int lLen = leftRes[0], rLen = rightRes[0], lFound = leftRes[1], rFound = rightRes[1];
-//
-//
-//        // 如果找到了目标节点
-//        if (node.val == targetVal) {
-//            // 结果设置为以 start 为 root节点的树的最大深度
-//            maxLen = Math.max(lLen, rLen);
-//            if (maxLen == k) {
-//                ans.add(node.val);
-//            }
-//            // 返回的以 start 节点作为叶子的深度, 第一个 1 表示深度,第二个 1 表示找到了
-//            return new int[]{1, 1};
-//        }
-//
-//        // 当 start 节点为子节点,而不是整个树的root节点的时候,才更新答案
-//        if (lFound == 1 || rFound == 1) {
-//            maxLen = Math.max(maxLen, lLen + rLen);
-//            if (maxLen == k) {
-//                ans.add(node.val);
-//            }
-//            int which = lFound == 1 ? lLen : rLen;
-//            return new int[]{which + 1, 1};
-//        }
-//        // 当 start 节点为子树的 root 节点,此时就是求树的深度
-//        return new int[]{Math.max(lLen, rLen) + 1, 0};
-//    }
-//
-//    @Test
-//    public void test_method_2() {
-//        TreeNode tree = BTreeUtil.createTree("[3,5,1,6,2,0,8,null,null,7,4]");
-//        List<Integer> integers = distanceK_2(tree, 5, 2);
-//        System.out.println("integers = " + integers);
-//
-//    }
+    //    public List<Integer> distanceK_2(TreeNode root, int target, int k) {
+    //        dfsOnce(root, target, k);
+    //        System.out.println("ans = " + ans);
+    //        return ans;
+    //    }
+    //
+    //    int maxLen;
+    //    public int[] dfsOnce(TreeNode node, Integer targetVal, int k) {
+    //        if (node == null) {
+    //            return new int[]{0, 0};
+    //        }
+    //        int[] leftRes = dfsOnce(node.left, targetVal,k);
+    //        int[] rightRes = dfsOnce(node.right, targetVal,k);
+    //        log.debug("processing node={}", node.val);
+    //        log.debug("node={},左边返回={},右边返回={}", node.val, JsonUtil.toJson(leftRes), JsonUtil.toJson(rightRes));
+    //        int lLen = leftRes[0], rLen = rightRes[0], lFound = leftRes[1], rFound = rightRes[1];
+    //
+    //
+    //        // 如果找到了目标节点
+    //        if (node.val == targetVal) {
+    //            // 结果设置为以 start 为 root节点的树的最大深度
+    //            maxLen = Math.max(lLen, rLen);
+    //            if (maxLen == k) {
+    //                ans.add(node.val);
+    //            }
+    //            // 返回的以 start 节点作为叶子的深度, 第一个 1 表示深度,第二个 1 表示找到了
+    //            return new int[]{1, 1};
+    //        }
+    //
+    //        // 当 start 节点为子节点,而不是整个树的root节点的时候,才更新答案
+    //        if (lFound == 1 || rFound == 1) {
+    //            maxLen = Math.max(maxLen, lLen + rLen);
+    //            if (maxLen == k) {
+    //                ans.add(node.val);
+    //            }
+    //            int which = lFound == 1 ? lLen : rLen;
+    //            return new int[]{which + 1, 1};
+    //        }
+    //        // 当 start 节点为子树的 root 节点,此时就是求树的深度
+    //        return new int[]{Math.max(lLen, rLen) + 1, 0};
+    //    }
+    //
+    //    @Test
+    //    public void test_method_2() {
+    //        TreeNode tree = BTreeUtil.createTree("[3,5,1,6,2,0,8,null,null,7,4]");
+    //        List<Integer> integers = distanceK_2(tree, 5, 2);
+    //        System.out.println("integers = " + integers);
+    //
+    //    }
 
     /*-------------------------------------------------下面的是求得一个节点到 root 节点为 k 的距离-------------------------------------------------------------*/
 

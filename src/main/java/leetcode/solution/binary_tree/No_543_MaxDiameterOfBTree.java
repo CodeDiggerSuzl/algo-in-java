@@ -29,7 +29,7 @@ import org.junit.Test;
  */
 @Stocked
 @LongTime
-@ToDo(doWhat = "重新梳理思路")
+@ToDo(value = "重新梳理思路")
 @Slf4j
 public class No_543_MaxDiameterOfBTree {
 
@@ -69,7 +69,6 @@ public class No_543_MaxDiameterOfBTree {
         ans = Math.max(left + right, ans);
         return Math.max(left, right) + 1;
     }
-
 
 
     @Test
