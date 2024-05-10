@@ -22,7 +22,7 @@ import org.junit.Test;
  * [solving tips]:
  */
 @Slf4j
-public class No_1448_GoodNodesInBTree {
+public class No_1448_M_GoodNodesInBTree {
 
 
     /*--------------------------------------------------------------------------------------------------------------*/
