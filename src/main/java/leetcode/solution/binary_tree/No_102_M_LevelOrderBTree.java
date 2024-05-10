@@ -1,9 +1,9 @@
-package leetcode.solution.binary_tree.common;
+package leetcode.solution.binary_tree;
 
+import leetcode.solution.binary_tree.common.BTreeUtil;
 import leetcode.solution.binary_tree.common.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import utils.JsonUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
