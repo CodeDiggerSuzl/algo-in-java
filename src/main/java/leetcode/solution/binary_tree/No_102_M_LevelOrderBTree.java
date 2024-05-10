@@ -48,7 +48,7 @@ public class No_102_M_LevelOrderBTree {
             //从左到右遍历每一层的每个节点
             List<Integer> list = new ArrayList<>();
             for (int i = 0; i < sz; i++) {
-                TreeNode cur = q.poll();
+                TreeNode cur = q.remove();
                 list.add(cur.val);
                 if (i == sz - 1) {
                     ans.add(list);
@@ -73,8 +73,31 @@ public class No_102_M_LevelOrderBTree {
 
     }
 
+    public void levelOrder_(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(node);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode poll = queue.poll();
+                System.out.println(" = " + poll.val);
+                if (poll.left != null) {
+                    queue.offer(poll.left);
+                }
+                if (poll.right != null) {
+                    queue.offer(poll.right);
+                }
+            }
+        }
+    }
+
 
     @Test
     public void test_2() {
+        TreeNode node = BTreeUtil.createTree("[3,9,20,null,null,15,7]");
+        levelOrder_(node);
     }
 }
