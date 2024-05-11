@@ -17,7 +17,7 @@ import org.junit.Test;
  * 我的题解:https://leetcode.cn/problems/path-sum/solutions/2757415/bian-li-he-di-gui-lai-shi-xian-by-suz1-i6ua
  *
  */
-public class No_112_SumOfPath {
+public class No_112_E_SumOfPath {
 
     /**
      * 使用递归的方式

@@ -9,12 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 113. 路径总和 II
+ * <p>
+ * <a href="https://leetcode.cn/problems/path-sum-ii/">url</a>
  * 此题和 112 类似 129, 1448 类似,都是要把数值或者节点往下传.
  * <p>
  * 唯一需要注意的是: 每次传入的话,左子树和右子树都要各传入一个新的 ArrayList,而不是共用同一个.
  */
 @Slf4j
-public class No_113_PathSumII {
+public class No_113_M_PathSumII {
 
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
 

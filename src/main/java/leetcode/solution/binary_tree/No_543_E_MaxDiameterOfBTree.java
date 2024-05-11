@@ -9,9 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
- * [name]:
+ * [name]: 543. 二叉树的直径
  * <p>
- * [link]:
+ * [link]:https://leetcode.cn/problems/diameter-of-binary-tree/
  * <p>
  * [description]:
  * 给你一棵二叉树的根节点，返回该树的直径 。
@@ -31,7 +31,7 @@ import org.junit.Test;
 @LongTime
 @ToDo(value = "重新梳理思路")
 @Slf4j
-public class No_543_MaxDiameterOfBTree {
+public class No_543_E_MaxDiameterOfBTree {
 
 
     private int ans = 0;

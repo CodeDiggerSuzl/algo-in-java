@@ -5,11 +5,13 @@ import leetcode.solution.binary_tree.common.TreeNode;
 import org.junit.Test;
 
 /**
+ * 104. 二叉树的最大深度
+ *
  * <a href="https://leetcode.cn/problems/maximum-depth-of-binary-tree/description/">...</a>*
  * <p>
  * 求一个数的最大深度
  */
-public class No_104_MaxDepth {
+public class No_104_E_MaxDepth {
 
 
     /**
@@ -27,9 +29,9 @@ public class No_104_MaxDepth {
 
 
     int ans = 0;
+
     /**
      * 使用遍历的方式
-     *
      */
     public int maxDepth_2(TreeNode root) {
         dfs(root, 0);
@@ -56,8 +58,6 @@ public class No_104_MaxDepth {
         TreeNode treeNode = BTreeUtil.buildTree(arr);
         System.out.println("maxDepth_2(treeNode) = " + maxDepth_2(treeNode));
     }
-
-
 
 
 }

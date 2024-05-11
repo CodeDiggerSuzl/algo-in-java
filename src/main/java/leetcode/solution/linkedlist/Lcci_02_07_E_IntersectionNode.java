@@ -8,7 +8,7 @@ import nodes.ListNode;
  * @author Suz1
  * @date 2020/6/3 10:12 上午
  */
-public class Lcci_intersection_of_two_linked_lists {
+public class Lcci_02_07_E_IntersectionNode {
 
 
     /**

@@ -25,7 +25,7 @@ import java.util.Queue;
  * [answers]:
  */
 @Slf4j
-public class N0_637_E_AverageOfLevelInBTree {
+public class No_637_E_AverageOfLevelInBTree {
 
     public List<Double> averageOfLevels(TreeNode root) {
         List<Double> ans = new ArrayList<>();

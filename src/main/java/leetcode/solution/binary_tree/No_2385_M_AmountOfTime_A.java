@@ -41,7 +41,7 @@ import java.util.Map;
 @ToDo(value = "做相关的题.写出题解.梳理思路")
 @Slf4j
 @SimilarTo({"863"})
-public class No_2385_AmountOfTime_A {
+public class No_2385_M_AmountOfTime_A {
 
     /**
      * 本质求得是每个节点最大的"半径"?
