@@ -1,5 +1,6 @@
 package leetcode.solution.binary_tree;
 
+import annotion.SimilarTo;
 import annotion.Smart;
 import leetcode.solution.binary_tree.common.BTreeUtil;
 import leetcode.solution.binary_tree.common.TreeNode;
@@ -41,6 +42,7 @@ import java.util.Queue;
  */
 @Slf4j
 @Smart("抽象成三叉树")
+@SimilarTo("117. 填充每个节点的下一个右侧节点指针 II")
 public class No_116_M_Connect_Right_Node {
 
     /* ----------------------------------------------- 巧妙的方法 ----------------------------------------------- */
@@ -77,7 +79,7 @@ public class No_116_M_Connect_Right_Node {
             int size = queue.size();
             for (int i = 0; i < size; i++) {
                 Node node = queue.poll();
-                
+
                 if (node.left != null) {
                     queue.offer(node.left);
                 }
@@ -99,6 +101,20 @@ public class No_116_M_Connect_Right_Node {
         }
         return root;
     }
+
+    // 上面的方法可以优化
+
+
+    /* -----------------------------------------------  一种优雅的方法 ----------------------------------------------- */
+    // https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/solutions/214548/java-san-xing-he-xin-dai-ma-chao-jian-ji-yi-yu-li-
+    // 每个 node 左子树的 next , 就是 node 的右子树
+    // 每个 node 右子树的 next, 就是 node next 的 左子树
+
+
+    /* -----------------------------------------------  灵神 ----------------------------------------------- */
+
+    // https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/solutions/2510369/san-chong-fang-fa-dfsbfsbfslian-biao-fu-5alnq
+
 
     @Test
     public void test_1() {
