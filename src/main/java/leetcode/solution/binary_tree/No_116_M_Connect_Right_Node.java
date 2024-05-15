@@ -7,8 +7,11 @@ import leetcode.solution.binary_tree.common.TreeNode;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import utils.JsonUtil;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -42,7 +45,7 @@ import java.util.Queue;
  */
 @Slf4j
 @Smart("抽象成三叉树")
-@SimilarTo("117. 填充每个节点的下一个右侧节点指针 II")
+@SimilarTo("117. 填充每个节点的下一个右侧节点指针 II") // 116 和 117 基本一样
 public class No_116_M_Connect_Right_Node {
 
     /* ----------------------------------------------- 巧妙的方法 ----------------------------------------------- */
@@ -67,7 +70,7 @@ public class No_116_M_Connect_Right_Node {
 
     /* ----------------------------------------------- 下面是层序遍历的方法 ----------------------------------------------- */
 
-    public Node connect(Node root) {
+    public Node connect_1(Node root) {
         if (root == null) {
             return null;
         }
@@ -104,6 +107,35 @@ public class No_116_M_Connect_Right_Node {
 
     // 上面的方法可以优化
 
+    public TreeNode connect(TreeNode root) {
+        if (root == null) {
+            return root;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                log.debug("nodeVal={}", node.val);
+                log.debug("size={}", queue.size());
+
+                TreeNode peek = queue.peek();
+                log.debug("peek={}", JsonUtil.toJson(peek));
+                if (i < size - 1) { // 这一样代码很关键
+                    node.next = peek;
+                }
+
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+            }
+        }
+        return root;
+    }
 
     /* -----------------------------------------------  一种优雅的方法 ----------------------------------------------- */
     // https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/solutions/214548/java-san-xing-he-xin-dai-ma-chao-jian-ji-yi-yu-li-
@@ -114,12 +146,35 @@ public class No_116_M_Connect_Right_Node {
     /* -----------------------------------------------  灵神 ----------------------------------------------- */
 
     // https://leetcode.cn/problems/populating-next-right-pointers-in-each-node/solutions/2510369/san-chong-fang-fa-dfsbfsbfslian-biao-fu-5alnq
-
+    // 使用 list 也优雅
+    public Node connect(Node root) {
+        if (root == null) {
+            return null;
+        }
+        List<Node> q = List.of(root);
+        while (!q.isEmpty()) {
+            List<Node> tmp = q;
+            q = new ArrayList<>();
+            for (int i = 0; i < tmp.size(); i++) {
+                Node node = tmp.get(i);
+                if (i > 0) { // 连接同一层的两个相邻节点
+                    tmp.get(i - 1).next = node;
+                }
+                if (node.left != null) {
+                    q.add(node.left);
+                }
+                if (node.right != null) {
+                    q.add(node.right);
+                }
+            }
+        }
+        return root;
+    }
 
     @Test
     public void test_1() {
         TreeNode node = BTreeUtil.createTree("[1,2,3,4,5,6,7]");
-
+        System.out.println("connect(node) = " + connect(node));
 
     }
 
