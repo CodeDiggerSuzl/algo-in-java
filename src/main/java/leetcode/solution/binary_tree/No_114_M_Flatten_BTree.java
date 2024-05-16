@@ -7,6 +7,9 @@ import leetcode.solution.binary_tree.common.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * [name]:114. 二叉树展开为链表
  * <p>
@@ -63,11 +66,44 @@ public class No_114_M_Flatten_BTree {
         TreeNode node = BTreeUtil.createTree("[1,2,5,3,4,null,6]");
         flatten(node);
         BTreePrinter.printTree(node);
-
     }
     /* ----------------------------------------------- 上面是递归的的方式 ----------------------------------------------- */
 
 
     // TODO 阅读这个
     // https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/solutions/131121/dong-hua-yan-shi-si-chong-jie-fa-114-er-cha-shu-zh
+
+
+
+    /* ----------------------------------------------- 方法 2 使用前序遍历,使用 list 存储 ----------------------------------------------- */
+
+    public void flatten_2(TreeNode root) {
+        if (root == null) return;
+        List<TreeNode> ans = new ArrayList<>();
+        dfs(root, ans);
+        for (int i = 0; i < ans.size(); i++) {
+            TreeNode treeNode = ans.get(i);
+            treeNode.left = null;
+            if (i < ans.size() - 1) {
+                treeNode.right = ans.get(i + 1);
+            }
+        }
+    }
+
+    public void dfs(TreeNode node, List<TreeNode> ans) {
+        if (node == null) {
+            return;
+        }
+        ans.add(node);
+        dfs(node.left, ans);
+        dfs(node.right, ans);
+    }
+
+    @Test
+    public void test_2() {
+        TreeNode node = BTreeUtil.createTree("[1,2,5,3,4,null,6]");
+        flatten_2(node);
+        BTreePrinter.printTree(node);
+    }
+
 }
