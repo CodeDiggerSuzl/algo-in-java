@@ -5,6 +5,7 @@ import leetcode.solution.binary_tree.common.BTreePrinter;
 import leetcode.solution.binary_tree.common.TreeNode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import utils.JsonUtil;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -78,23 +79,41 @@ public class No_654_M_MaximumBTree {
         log.debug("arr split={}", ints);
     }
 
+    @Test
+    public void test_2() {
+        int[] arr = {3, 2, 1, 6, 0, 5};
+        TreeNode root = constructMaximumBinaryTree_2(arr);
+        BTreePrinter.printTree(root);
+
+    }
+
+    // 单调栈的解法!
     public TreeNode constructMaximumBinaryTree_2(int[] nums) {
-        Deque<TreeNode> deque = new ArrayDeque();
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        Deque<Integer> deque_val = new ArrayDeque<>();
         for (int i = 0; i < nums.length; i++) {
-            TreeNode node = new TreeNode(nums[i]);
+            int num = nums[i];
+            log.debug("num={},deque={}", num, JsonUtil.toJson(deque_val));
+            TreeNode node = new TreeNode(num);
             while (!deque.isEmpty()) {
                 TreeNode topNode = deque.peekLast();
                 if (topNode.val > node.val) {
                     deque.addLast(node);
+                    deque_val.addLast(node.val);
                     topNode.right = node;
-                    break;
+                    break;  // 注意要 break
                 } else {
                     deque.removeLast(); // 出栈操作
+                    deque_val.removeLast();
                     node.left = topNode;
                 }
             }
-            if (deque.isEmpty()) deque.addLast(node);
+            if (deque.isEmpty()) {
+                deque.addLast(node);
+                deque_val.addLast(node.val);
+            }
         }
+        log.info("deque last={}", JsonUtil.toJson(deque_val));
         return deque.peek();
     }
 
@@ -135,3 +154,4 @@ public class No_654_M_MaximumBTree {
         return root;
     }
 }
+
