@@ -1,8 +1,10 @@
 package leetcode.solution.bst;
 
 import annotion.ToDo;
+import leetcode.solution.binary_tree.common.BTreeUtil;
 import leetcode.solution.binary_tree.common.TreeNode;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,5 +48,32 @@ public class No_230_M_KthSmallestNodeInBst {
 
     /* ----------------------------------------------- 下面是更好的解法 ----------------------------------------------- */
 
-    // TODO
+
+    public int kthSmallest2(TreeNode root, int k) {
+        kCpy = k;
+        dfsBetter(root);
+        return target;
+    }
+
+    Integer target = -1, kCpy = -1;
+
+    private void dfsBetter(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        dfsBetter(root.left);
+        System.out.println("root = " + root.val);
+        System.out.println("k = " + kCpy);
+        if (--kCpy == 0) {
+            target = root.val;
+            return;
+        }
+        dfsBetter(root.right);
+    }
+
+    @Test
+    public void test_1() {
+        TreeNode node = BTreeUtil.createTree("[5,3,6,2,4,null,null,1]");
+        System.out.println("kthSmallest2(node, 1) = " + kthSmallest2(node, 3));
+    }
 }
