@@ -48,6 +48,7 @@ public class No_98_M_ValidBST {
         }
     }
 
+    /* -----------------------------------------------*/
 
     // using recursion method
     // pass the min and max value to the next recursion.
@@ -73,7 +74,6 @@ public class No_98_M_ValidBST {
         TreeNode node = BTreeUtil.createTree("[1,null,1]");
         System.out.println("isValidBST(node) = " + isValidBST(node));
         System.out.println("isValidBST(node) = " + isValidBST_(node));
-
     }
 
 
