@@ -30,26 +30,49 @@ import org.junit.Test;
 @Slf4j
 public class No_98_M_ValidBST {
 
-    Long preMax = Long.MIN_VALUE;
+    // Essentials
+
+    // using for loop
+    private Long preMax = Long.MIN_VALUE;
 
     public boolean isValidBST(TreeNode root) {
         if (root == null) {
             return true;
         }
-        boolean left = isValidBST(root.left);
-        if (root.val <= preMax) {
-            return false;
-        } else {
+        boolean leftOk = isValidBST(root.left);
+        if (root.val > preMax) {
             preMax = (long) root.val;
+            return leftOk && isValidBST(root.right);
+        } else {
+            return false;
         }
-        boolean right = isValidBST(root.right);
-        return left && right;
+    }
+
+
+    // using recursion method
+    // pass the min and max value to the next recursion.
+    public boolean isValidBST_(TreeNode root) {
+        return isValidBST_(root, null, null);
+    }
+
+    private boolean isValidBST_(TreeNode root, Integer min, Integer max) {
+        if (root == null) {
+            return true;
+        }
+        if (min != null && root.val <= min) {
+            return false;
+        }
+        if (max != null && root.val >= max) {
+            return false;
+        }
+        return isValidBST_(root.left, min, root.val) && isValidBST_(root.right, root.val, max);
     }
 
     @Test
     public void test_1() {
         TreeNode node = BTreeUtil.createTree("[1,null,1]");
         System.out.println("isValidBST(node) = " + isValidBST(node));
+        System.out.println("isValidBST(node) = " + isValidBST_(node));
 
     }
 
