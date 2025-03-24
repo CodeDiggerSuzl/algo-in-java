@@ -12,7 +12,7 @@ import java.util.Map;
  * [link]:https://leetcode.cn/problems/longest-substring-without-repeating-characters/description/
  */
 @Slf4j
-public class No_3_M_Longest_without_repeating_characters {
+public class No_3_M_Longest_Without_Repeating_Characters {
     public int lengthOfLongestSubstring(String s) {
         int len = s.length();
         int left = 0, ans = 0;
@@ -52,16 +52,17 @@ public class No_3_M_Longest_without_repeating_characters {
         if (s.length() == 0) {
             return 0;
         }
+        Map<Character, Integer> map = new HashMap<>();
         int ans = 0, left = 0;
-        HashMap<Character, Integer> memo = new HashMap<>();
-        for (int right = 0; right < s.length(); right++) {
-            char currChar = s.charAt(right);
-            memo.put(currChar, memo.getOrDefault(currChar, 0) + 1);
-            while (memo.getOrDefault(currChar, 0) > 1) {
-                memo.put(s.charAt(left), memo.get(s.charAt(left)) - 1);
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            map.put(c, map.getOrDefault(c, 0) + 1);
+            while (map.get(c) > 1) {
+                char leftChar = s.charAt(left);
+                map.put(leftChar, map.getOrDefault(leftChar, 0) - 1);
                 left++;
             }
-            ans = Math.max(ans, right - left + 1);
+            ans = Math.max(i - left + 1, ans);
         }
         return ans;
     }

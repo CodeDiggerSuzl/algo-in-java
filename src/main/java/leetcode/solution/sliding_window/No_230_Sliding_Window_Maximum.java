@@ -51,11 +51,29 @@ public class No_230_Sliding_Window_Maximum {
         return ans;
     }
 
+    public int[] maxSlidingWindow_(int[] nums, int k) {
+        int[] ans = new int[nums.length - k + 1];
+        Deque<Integer> deque = new ArrayDeque<>();
+        for (int i = 0; i < nums.length; i++) {
+            while (!deque.isEmpty() && nums[i] >= nums[deque.peekLast()]) {
+                deque.pollLast();
+            }
+            deque.offerLast(i);
+
+            if (deque.peekFirst() <= i - k + 1) {
+                deque.pollFirst();
+            }
+            if (i >= k - 1) {
+                ans[i - k + 1] = nums[deque.peekFirst()];
+            }
+        }
+        return ans;
+    }
 
     @Test
     public void test() {
         int[] input = {1, 3, -1, -3, 5, 3, 6, 7};
-        int[] ints = maxSlidingWindow(input, 3);
+        int[] ints = maxSlidingWindow_(input, 3);
         System.out.println("Arrays.toString(ints) = " + Arrays.toString(ints));
     }
 }
