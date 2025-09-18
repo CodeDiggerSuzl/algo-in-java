@@ -98,6 +98,7 @@ public class No_3231_CountSpecialNumOfChar {
         return !Character.isLowerCase(firstChar) || !Character.isUpperCase(c);
     }
 
+    //
     public boolean detectCapitalUseElegant(String word) {
         // 统计某个字符的操作 全部统计大写字符或者消息字符在和字符的长度作比较
     }
