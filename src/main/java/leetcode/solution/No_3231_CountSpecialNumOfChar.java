@@ -98,9 +98,46 @@ public class No_3231_CountSpecialNumOfChar {
         return !Character.isLowerCase(firstChar) || !Character.isUpperCase(c);
     }
 
-    //
+    // 520
     public boolean detectCapitalUseElegant(String word) {
         // 统计某个字符的操作 全部统计大写字符或者消息字符在和字符的长度作比较
+        int upperCnt = 0;
+        int length = word.length();
+        for (int i = 0; i < length; i++) {
+            char curr = word.charAt(i);
+            if (Character.isUpperCase(curr)) {
+                upperCnt++;
+            }
+        }
+        return upperCnt == length || upperCnt == 0 || (upperCnt == 1 && Character.isUpperCase(word.charAt(0)));
+    }
+
+    /**
+     *2129. 将标题首字母大写
+     * 给你一个字符串 title ，它由单个空格连接一个或多个单词组成，每个单词都只包含英文字母。请你按以下规则将每个单词的首字母
+     * 大写 ：
+     *
+     * 如果单词的长度为 1 或者 2 ，所有字母变成小写。
+     * 否则，将单词首字母大写，剩余字母变成小写。
+     * 请你返回 大写后 的 title 。
+     */
+    public String capitalizeTitle(String title) {
+        String[] arr = title.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < arr.length; i++) {
+            String word = arr[i];
+            if (word.length() == 1 || word.length() == 2) {
+                sb.append(word.toLowerCase());
+            } else {
+                String lowerCase = word.toLowerCase();
+                sb.append(Character.toUpperCase(lowerCase.charAt(0)));
+                sb.append(lowerCase.substring(1));
+            }
+            if (i != arr.length - 1) {
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
     }
 
     @Test
