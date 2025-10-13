@@ -2,10 +2,11 @@ package leetcode.solution.prefixsum;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import utils.JsonUtil;
 
 
 @Slf4j
-public class PrefixSumSolutions {
+public class DPSolutions {
 
     // [3147. 从魔法师身上吸取的最大能量 - 力扣（LeetCode）](https://leetcode.cn/problems/taking-maximum-energy-from-the-mystic-dungeon/?envType=daily-question&envId=2025-10-10)
     public int maximumEnergy(int[] energy, int k) {
@@ -64,13 +65,20 @@ public class PrefixSumSolutions {
     }
 
 
-    // Input: energy = [5,2,-10,-5,1], k = 3
-    //
-    // Output: 3
-    //
-    // Explanation: We can gain a total energy of 3 by starting from magician 1 absorbing 2 + 1 = 3.
-    //
-    // Example 2:
-    //
-    // Input: energy = [-2,-3,-1], k = 2
+    public int climbStairs(int n) {
+        int[] dp = new int[n + 1];
+        dp[0] = 1;
+        dp[1] = 2;
+        for (int i = 2; i <= n - 1; i++) {
+            log.info("n={} dp={}", n, JsonUtil.toJson(dp));
+            dp[n - 1] = dp[n - 2] + dp[n - 3];
+            log.info("n={} dp={}", n, JsonUtil.toJson(dp));
+        }
+        return dp[n];
+    }
+
+    @Test
+    public void testClimbStairs() {
+        System.out.println("climbStairs(4) = " + climbStairs(4));
+    }
 }
