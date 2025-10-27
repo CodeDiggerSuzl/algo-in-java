@@ -74,6 +74,6 @@ public class Binary_Search_Qs {
      *
      */
     public int mySqrt(int x) {
-        
+        return 0;
     }
 }
