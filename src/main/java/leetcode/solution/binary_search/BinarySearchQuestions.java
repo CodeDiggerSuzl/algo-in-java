@@ -3,6 +3,12 @@ package leetcode.solution.binary_search;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+
 
 @Slf4j
 public class BinarySearchQuestions {
@@ -131,4 +137,57 @@ public class BinarySearchQuestions {
     // ----------------------- 2529 end  -----------------------------------------------
 
 
+    @Test
+    public void testTime() {
+        // 模拟 ride.createTime 和 ride.planStartTime
+        LocalDateTime createLdt = LocalDateTime.of(2025, 10, 27, 17, 44, 11);
+        LocalDateTime planStartLdt = LocalDateTime.of(2025, 10, 27, 18, 15, 0);
+
+        // 转成 Date（模拟你的业务对象）
+        Date createTimeDate = Date.from(createLdt.atZone(ZoneId.systemDefault()).toInstant());
+        Date planStartDate = Date.from(planStartLdt.atZone(ZoneId.systemDefault()).toInstant());
+
+        // 转成 Instant
+        Instant createTime = createTimeDate.toInstant();
+        Instant planStartTime = planStartDate.toInstant();
+
+        // 计算分钟差
+        long gapSeconds = Duration.between(createTime, planStartTime).getSeconds();
+        log.info("gap secs ={}", gapSeconds);
+        long gapMinutes = Duration.between(createTime, planStartTime).toMinutes();
+        System.out.println("gapMinutes = " + gapMinutes);
+
+        // 断言
+    }
+
+    @Test
+    public void testGapSecondsLogic() {
+        // 模拟 ride.createTime 和 ride.planStartTime
+        LocalDateTime createLdt = LocalDateTime.of(2025, 10, 27, 17, 44, 11);
+        LocalDateTime planStartLdt = LocalDateTime.of(2025, 10, 27, 18, 15, 0);
+
+        // 转成 Date
+        Date createTimeDate = Date.from(createLdt.atZone(ZoneId.systemDefault()).toInstant());
+        Date planStartDate = Date.from(planStartLdt.atZone(ZoneId.systemDefault()).toInstant());
+
+        // 转成 Instant
+        Instant createTime = createTimeDate.toInstant();
+        Instant planStartTime = planStartDate.toInstant();
+
+        // 计算秒差
+        long gapSeconds = Duration.between(createTime, planStartTime).getSeconds();
+
+        // 模拟配置（分钟转秒）
+        Integer gapMinutesConfig = 30; // 模拟配置 30 分钟
+        long gapSecondsConfig = gapMinutesConfig * 60L;
+
+        // 断言逻辑
+        if (gapSeconds <= gapSecondsConfig) {
+            System.out.println("不处理，秒差=" + gapSeconds + " 小于等于配置=" + gapSecondsConfig);
+        } else {
+            System.out.println("继续处理，秒差=" + gapSeconds + " 大于配置=" + gapSecondsConfig);
+        }
+
+        // 断言结果（按前面计算，秒差应该是 1849 秒）
+    }
 }
