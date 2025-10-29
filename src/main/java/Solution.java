@@ -69,9 +69,8 @@ public class Solution {
 
     public long countFairPairs(int[] nums, int lower, int upper) {
         Arrays.sort(nums);
-        int ans = 0;
+        long ans = 0; // TODO
         for (int j = 0; j < nums.length; j++) {
-            int num = nums[j];
             int small = bsFind(nums, j, lower - nums[j]);
             int big = bsFind(nums, j, upper - nums[j] + 1);
             ans += big - small;
@@ -80,10 +79,45 @@ public class Solution {
         return ans;
     }
 
+    public long countFairPairsWithLog(int[] nums, int lower, int upper) {
+        Arrays.sort(nums);
+        long ans = 0;
+
+        log.info("nums={}", Arrays.toString(nums));
+
+        for (int j = 0; j < nums.length; j++) {
+            int smallTarget = lower - nums[j];
+            int bigTarget = upper - nums[j] + 1;
+
+            int small = bsFind(nums, j, smallTarget);
+            int big = bsFind(nums, j, bigTarget);
+
+            int from = Math.max(0, small);
+            int to = Math.max(from, Math.min(big, j)); // 保证 i < j
+            int count = Math.max(0, to - from);
+
+            log.info("---- j = {} (nums[j]={}) ----", j, nums[j]);
+            log.info("  valid index range i ∈ [{} , {})", from, to);
+
+            // ✅ 打印每一个满足条件的 (i, j) 以及对应的子数组 [nums[i], nums[j]]
+            for (int i = from; i < to; i++) {
+                log.info("    pair: (i={}, j={}) -> [{}, {}]", i, j, nums[i], nums[j]);
+            }
+
+            ans += count;
+            log.info("  count added this round = {}", count);
+            log.info("  ans so far = {}\n", ans);
+        }
+
+        return ans;
+    }
+
+
     int bsFind(int[] arr, int right, int target) {
         int left = -1;
         while (left + 1 < right) {
             int mid = left + ((right - left) >> 1);
+
             if (arr[mid] >= target) {
                 right = mid;
             } else {
@@ -95,8 +129,51 @@ public class Solution {
 
     @Test
     public void testPair() {
-        int[] arr = {1, 7, 9, 2, 5};
-        long l = countFairPairs(arr, 11, 11);
+        int[] arr = {0, 1, 7, 4, 4, 5};
+        long l = countFairPairsWith2Pointer(arr, 3, 6);
         System.out.println("l = " + l);
     }
+
+    public long countFairPairsWith2Pointer(int[] nums, int lower, int upper) {
+        Arrays.sort(nums);
+        return count(nums, upper) - count(nums, lower - 1);
+    }
+
+    public long count(int[] nums, int upper) {
+        long res = 0;
+        int j = nums.length - 1;
+        for (int i = 0; i < nums.length; i++) {
+            while (j > i && nums[j] + nums[i] > upper) {
+                j--;
+            }
+            if (i == j) {
+                break;
+            }
+            res += j - i;
+        }
+        return res;
+    }
+
+
+    public int hIndex(int[] citations) {
+        int left = 0, right = citations.length;
+        while (left < right) {
+            int mid = (left + right) / 2;
+            if (citations[mid] >= mid + 1) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+
+        return citations[left];
+    }
+
+    @Test
+    public void testHIndex() {
+        int[] arr = {1, 2, 100};
+        int cnt = hIndex(arr);
+        System.out.println("cnt = " + cnt);
+    }
+
 }
