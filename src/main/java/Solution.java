@@ -156,22 +156,23 @@ public class Solution {
 
 
     public int hIndex(int[] citations) {
-        int left = 0, right = citations.length;
+        int len = citations.length;
+        int left = 0, right = len;
         while (left < right) {
             int mid = (left + right) / 2;
-            if (citations[mid] >= mid + 1) {
+            if (citations[mid] >= len - mid) {
                 right = mid;
             } else {
                 left = mid + 1;
             }
         }
 
-        return citations[left];
+        return len - left;
     }
 
     @Test
     public void testHIndex() {
-        int[] arr = {1, 2, 100};
+        int[] arr = {1, 100, 100, 100};
         int cnt = hIndex(arr);
         System.out.println("cnt = " + cnt);
     }
