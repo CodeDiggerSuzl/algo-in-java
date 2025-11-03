@@ -154,7 +154,9 @@ public class Solution {
         return res;
     }
 
-
+    /**
+     * https://leetcode.cn/problems/h-index-ii/solutions/2504326/tu-jie-yi-tu-zhang-wo-er-fen-da-an-si-ch-d15k/
+     */
     public int hIndex(int[] citations) {
         int len = citations.length;
         int left = 0, right = len;
@@ -166,15 +168,77 @@ public class Solution {
                 left = mid + 1;
             }
         }
-
         return len - left;
+    }
+
+    public int hIndex2(int[] arr) {
+        int len = arr.length;
+        int left = 0, right = len - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (arr[len - mid] >= mid) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return left - 1;
     }
 
     @Test
     public void testHIndex() {
         int[] arr = {1, 100, 100, 100};
-        int cnt = hIndex(arr);
+        int cnt = hIndex2(arr);
         System.out.println("cnt = " + cnt);
     }
 
+    /**
+     * 可可吃香蕉
+     * https://leetcode.cn/problems/koko-eating-bananas/
+     * @param piles
+     * @param h
+     * @return
+     */
+    public int minEatingSpeed(int[] piles, int h) {
+        long left = 1L;
+        // right = Arrays.stream(piles).sum(); ❌写法
+        long right = Arrays.stream(piles).asLongStream().sum(); // 有点复杂
+        //        long right = 0;
+        //        for (int pile : piles) {
+        //            right = Math.max(right, pile);
+        //        }
+
+        System.out.println("right = " + right);
+        while (left <= right) {
+            long mid = (right - left) / 2 + left;
+            if (speedOk(mid, piles, h)) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return (int) left;
+    }
+
+    private boolean speedOk(long k, int[] piles, int h) {
+        long sum = 0;
+        for (int pile : piles) {
+            //            if (pile <= k) {
+            //                sum += 1;
+            //            } else {
+            //                sum += (pile + k - 1) / k;
+            //            }
+            sum += (pile + k - 1) / k;
+            if (sum > h) return false; // 提前返回
+        }
+        return sum <= h;
+    }
+
+    @Test
+    public void testKoko() {
+        int[] arr = {30, 11, 23, 4, 20};
+        int h = 5;
+        int minSpeed = minEatingSpeed(arr, h);
+        System.out.println("minSpeed = " + minSpeed);
+    }
 }
