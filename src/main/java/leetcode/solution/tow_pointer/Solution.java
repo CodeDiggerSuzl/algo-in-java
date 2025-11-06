@@ -144,34 +144,44 @@ public class Solution {
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
+            // 最小的数已经大于 target, 直接 break
+            if ((long) nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target) {
+                break;
+            }
+            // 如果最大的值小于 target,继续下一个循环
+            if ((long) nums[i] + nums[len - 3] + nums[len - 2] + nums[len - 1] < target) {
+                continue;
+            }
             for (int j = i + 1; j < len - 2; j++) {
                 if (j > i + 1 && nums[j] == nums[j - 1]) {
                     continue;
                 }
+                if ((long) nums[i] + nums[j] + nums[j + 1] + nums[j + 2] > target) {
+                    break;
+                }
+                if ((long) nums[i] + nums[j] + nums[len - 2] + nums[len - 1] < target) {
+                    continue;
+                }
                 int left = j + 1, right = len - 1;
                 while (left < right) {
-                    long sum = nums[i] + nums[j] + nums[left] + nums[right];
-                    if (sum == target) {
-                        List<Integer> list = new ArrayList<>();
-                        list.add(nums[i]);
-                        list.add(nums[j]);
-                        list.add(nums[left]);
-                        list.add(nums[right]);
-                        ans.add(list);
-                        left++;
+                    long sum = (long) nums[i] + nums[j] + nums[left] + nums[right];
+                    if (sum > target) {
                         right--;
+                    } else if (sum < target) {
+                        left++;
+                    } else {
+                        ans.add(Arrays.asList(nums[i], nums[j], nums[left], nums[right]));
+                        left++;
                         while (left < right && nums[left] == nums[left - 1]) {
                             left++;
                         }
+                        right--;
                         while (left < right && nums[right] == nums[right + 1]) {
                             right--;
                         }
-                    } else if (sum > target) {
-                        right--;
-                    } else {
-                        left++;
                     }
                 }
+
             }
         }
         return ans;
@@ -218,6 +228,77 @@ public class Solution {
         List<List<Integer>> lists = fourSum(arr, 8);
         log.info("ans={}", JsonUtil.toJson(lists));
     }
-    /* -----------------------------------------------  ----------------------------------------------- */
 
+    /* -----------------------------------------------  ----------------------------------------------- */
+    // 611. 有效三角形的个数 https://leetcode.cn/problems/valid-triangle-number/description/
+    // 给定一个包含非负整数的数组 nums ，返回其中可以组成三角形三条边的三元组个数。
+    public int triangleNumberRevese(int[] nums) {
+        Integer[] arr = Arrays.stream(nums).boxed().toArray(Integer[]::new);
+        Arrays.sort(arr, Collections.reverseOrder());
+        int len = arr.length;
+        int ans = 0;
+        for (int i = 0; i < len - 2; i++) {
+            int curr = arr[i];
+            int left = i + 1, right = len - 1;
+            while (left < right) {
+                int sum = arr[right] + arr[left];
+                if (sum > curr) {
+                    ans += (right - left);
+                    left++;
+                } else {
+                    right--;
+                }
+            }
+        }
+        return ans;
+    }
+
+    public int triangleNumber(int[] nums) {
+        // 从小到大
+        Arrays.sort(nums);
+        int len = nums.length;
+        int ans = 0;
+        for (int i = len - 1; i >= 2; i--) {
+            int right = i - 1, left = 0;
+            while (left < right) {
+                if (nums[left] + nums[right] > nums[i]) {
+                    ans += right - left;
+                    right--;
+                } else {
+                    left++;
+                }
+            }
+        }
+        return ans;
+    }
+
+
+    // 推荐写法
+    // 固定最大边/ 二分剩余边
+    public int triangleNumber_2(int[] nums) {
+        Arrays.sort(nums);
+        int ans = 0;
+        for (int k = 2; k < nums.length; k++) {
+            int c = nums[k];
+            int left = 0; // a=nums[left]
+            int right = k - 1; // b=nums[right]
+            while (left < right) {
+                if (nums[left] + nums[right] > c) {
+                    ans += right - left;
+                    right--;
+                } else {
+                    left++;
+                }
+            }
+        }
+        return ans;
+    }
+
+
+    @Test
+    public void test_611() {
+        int[] arr = {2, 2, 3, 4};
+        int ans = triangleNumber_2(arr);
+        System.out.println("ans = " + ans);
+    }
 }
