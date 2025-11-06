@@ -1,4 +1,4 @@
-package leetcode.solution.k_sum;
+package leetcode.solution.tow_pointer.k_sum;
 
 import java.util.Arrays;
 

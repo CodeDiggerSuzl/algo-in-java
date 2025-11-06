@@ -1,4 +1,4 @@
-package leetcode.solution.k_sum;
+package leetcode.solution.tow_pointer.k_sum;
 
 import org.junit.Test;
 
@@ -48,6 +48,7 @@ public class No_15_ThreeSum {
         }
         return ans;
     }
+
     public List<List<Integer>> threeSum2(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> ans = new ArrayList<>();

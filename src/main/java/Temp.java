@@ -130,7 +130,7 @@ public class Temp {
      * <p>
      * 单调队列高效写法（Java）：
      * <p>
-     * class Solution {
+     * class leetcode.solution.tow_pointer.Solution {
      * public int[] maxSlidingWindow(int[] nums, int k) {
      * int n = nums.length;
      * int[] res = new int[n - k + 1];
