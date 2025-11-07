@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Slf4j
-public class Solution {
+public class TwoPointerSolution {
 
     // 15. 三数之和 https://leetcode.cn/problems/3sum/
     public List<List<Integer>> threeSum(int[] nums) {
@@ -54,6 +54,8 @@ public class Solution {
         log.info(JsonUtil.toJson(lists));
     }
 
+    /* -------------------------------------------------------------------------------------------------------- */
+
     // 2824. 统计和小于目标的下标对数目 - 力扣（LeetCode）
     // https://leetcode.cn/problems/count-pairs-whose-sum-is-less-than-target/description/
     // 注意题目中 "对数"的算法,当 leftVal + rightVal == target 的时候,那么 right-left 就是小于 0 的对数
@@ -82,7 +84,7 @@ public class Solution {
         System.out.println("i = " + i);
     }
 
-    /* -----------------------------------------------  ----------------------------------------------- */
+    /* -------------------------------------------------------------------------------------------------------- */
 
     public int threeSumClosest(int[] nums, int target) {
         Integer gap = Integer.MAX_VALUE;
@@ -232,7 +234,7 @@ public class Solution {
     /* -----------------------------------------------  ----------------------------------------------- */
     // 611. 有效三角形的个数 https://leetcode.cn/problems/valid-triangle-number/description/
     // 给定一个包含非负整数的数组 nums ，返回其中可以组成三角形三条边的三元组个数。
-    public int triangleNumberRevese(int[] nums) {
+    public int triangleNumberReverse(int[] nums) {
         Integer[] arr = Arrays.stream(nums).boxed().toArray(Integer[]::new);
         Arrays.sort(arr, Collections.reverseOrder());
         int len = arr.length;
@@ -301,4 +303,8 @@ public class Solution {
         int ans = triangleNumber_2(arr);
         System.out.println("ans = " + ans);
     }
+
+    /* -------------------------------------------------------------------------------------------------------- */
+
+
 }

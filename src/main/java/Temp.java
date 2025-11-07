@@ -1,7 +1,15 @@
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 @Slf4j
 public class Temp {
@@ -48,7 +56,7 @@ public class Temp {
 
     public static void main(String[] args) {
         int i = lenOfLongestSubstring("pwwkew");
-        System.out.println(i);
+        log.info("i={}", i);
     }
 
     /*--------------------------------------------------------------------------------------------------------------*/
