@@ -275,7 +275,7 @@ public class TwoPointerSolution {
     }
 
 
-    // 推荐写法
+    // 推荐写法 ****
     // 固定最大边/ 二分剩余边
     public int triangleNumber_2(int[] nums) {
         Arrays.sort(nums);
@@ -306,5 +306,107 @@ public class TwoPointerSolution {
 
     /* -------------------------------------------------------------------------------------------------------- */
 
+    /**
+     *11. 盛最多水的容器
+     * 提示
+     * 给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+     * <p>
+     * 找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+     * <p>
+     * 返回容器可以储存的最大水量。
+     * 说明：你不能倾斜容器。11. 盛最多水的容器
+     * 提示
+     * 给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+     *
+     * 找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+     *
+     * 返回容器可以储存的最大水量。
+     *
+     * 说明：你不能倾斜容器。
+     */
+    public int maxArea(int[] height) {
+        int ans = 0, left = 0, right = height.length - 1;
+        while (left < right) {
+            int area = (right - left) * Math.min(height[left], height[right]);
+            if (area > ans) {
+                ans = area;
+            }
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return ans;
+    }
 
+    @Test
+    public void test_11() {
+        int[] arr = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+        int ans = maxArea(arr);
+        log.info("arr{},max ans={}", arr, ans);
+    }
+
+    /* -----------------------------------------------  ----------------------------------------------- */
+    // 42. 接雨水 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
+    // https://leetcode.cn/problems/trapping-rain-water/description/
+    public int trap(int[] height) {
+        int len = height.length;
+        int[] preMax = new int[len];
+        int pre = Integer.MIN_VALUE;
+        // 获取前缀最大高度
+        for (int i = 0; i < height.length; i++) {
+            if (height[i] > pre) {
+                pre = height[i];
+            }
+            preMax[i] = pre;
+        }
+        log.debug("premax = {}", JsonUtil.toJson(preMax));
+        int[] sufMax = new int[len];
+        int suf = Integer.MIN_VALUE;
+        // 获取后缀最大高度
+        for (int j = height.length - 1; j >= 0; j--) {
+            if (height[j] > suf) {
+                suf = height[j];
+            }
+            sufMax[j] = suf;
+        }
+        log.debug("premax = {}\n, sufMax = {},\n height={}", JsonUtil.toJson(preMax), JsonUtil.toJson(sufMax), JsonUtil.toJson(height));
+        // 每个格子接的雨水的 (Math.min(preMax[i],sufMax[i]) - height[i]) * 1
+        int ans = 0;
+        for (int i = 0; i < height.length; i++) {
+            int curr = Math.max(0, Math.min(sufMax[i], preMax[i]) - height[i]);
+            log.info("i={},curr={}", i, curr);
+            ans += curr;
+        }
+        return ans;
+    }
+
+    public int trapWith2Pointer(int[] height) {
+        int left = 0, right = height.length - 1, ans = 0, pre_max = 0, suf_max = 0;
+        while (left <= right) {
+            pre_max = Math.max(pre_max, height[left]);
+            suf_max = Math.max(suf_max, height[right]);
+            if (pre_max < suf_max) {
+                int curr = pre_max - height[left];
+                ans += curr;
+                left++;
+            } else {
+                int curr = suf_max - height[right];
+                ans += curr;
+                right--;
+            }
+        }
+        return ans;
+    }
+
+
+    @Test
+    public void test_42() {
+        int[] arr = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        int sum = trapWith2Pointer(arr);
+        System.out.println("sum = " + sum);
+    }
+    /* -----------------------------------------------  ----------------------------------------------- */
+    
 }
