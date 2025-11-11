@@ -460,4 +460,71 @@ public class TwoPointerSolution {
         log.info("palindrome={}", palindrome);
 
     }
+
+    /*--------------------------------------------------------------------------------------------------------*/
+    public int minimumRefill(int[] plants, int capacityA, int capacityB) {
+        int left = 0, right = plants.length - 1, ans = 0;
+        int bobWater = capacityB;
+        int aliceWater = capacityA;
+        while (left < right) {
+            if (aliceWater < plants[left]) {
+                ans++;
+                aliceWater = capacityA;
+            }
+            aliceWater -= plants[left];
+            left++;
+
+            if (bobWater < plants[right]) {
+                ans++;
+                bobWater = capacityB;
+            }
+            bobWater -= plants[right];
+            right--;
+
+        }
+        if (left == right) {
+            if (Math.max(aliceWater, bobWater) < plants[left]) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    public int minimumRefill_fullVersion(int[] plants, int capacityA, int capacityB) {
+        int left = 0, right = plants.length - 1;
+        int alice = capacityA, bob = capacityB;
+        int ans = 0;
+
+        while (left < right) {
+            // Alice 浇左边
+            while (alice < plants[left]) {
+                ans++;
+                alice = capacityA;
+            }
+            alice -= plants[left];
+            left++;
+
+            // Bob 浇右边
+            while (bob < plants[right]) {
+                ans++;
+                bob = capacityB;
+            }
+            bob -= plants[right];
+            right--;
+        }
+
+        // 相遇时处理中间植物
+        if (left == right) {
+            if (Math.max(alice, bob) < plants[left]) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    @Test
+    public void test_2510() {
+
+
+    }
 }
