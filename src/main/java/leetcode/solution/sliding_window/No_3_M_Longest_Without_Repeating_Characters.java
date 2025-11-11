@@ -81,10 +81,30 @@ public class No_3_M_Longest_Without_Repeating_Characters {
         return ans;
     }
 
+
+    public static int getLen(String s) {
+        if (s.isEmpty()) {
+            return 0;
+        }
+
+        int L = 0, ans = 0;
+        int[] memo = new int[256];
+        for (int R = 0; R < s.length(); R++) {
+            char charAt = s.charAt(R);
+            memo[charAt]++;
+            while (memo[charAt] > 1) {
+                memo[s.charAt(L)]--;
+                L++;
+            }
+            ans = Math.max(ans, R - L + 1);
+        }
+        return ans;
+    }
+
     @Test
     public void test() {
-        String testStr = "pwwkewws";
-        int ans = method3_whth_map(testStr);
-        assert ans == 3;
+        String testStr = "pwkewws";
+        int ans = getLen(testStr);
+        assert ans == 4;
     }
 }
