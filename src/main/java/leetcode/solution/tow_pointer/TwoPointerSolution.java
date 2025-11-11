@@ -436,7 +436,7 @@ public class TwoPointerSolution {
     /**
      * <a href="https://leetcode.cn/problems/valid-palindrome/">125. 验证回文串</a>
      */
-    @LongTime(reason = "空间复杂度比较高")
+    @LongTime(reason = "空间复杂度比较高")// on 空间复杂度
     public boolean isPalindrome(String s) {
         String str = s.toLowerCase().replaceAll("[^a-z0-9]", "");
         int left = 0, right = str.length() - 1;
@@ -450,46 +450,64 @@ public class TwoPointerSolution {
         }
         return true;
     }
+
+    @Smart("空间负责度小 O(1)")
+    public boolean isPalindrome_2(String s) {
+        int left = 0, right = s.length() - 1;
+        while (left < right) {
+            // 先判断 left<right
+            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
+                left++;
+            }
+
+            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
+                right--;
+            }
+            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
+                return false;
+            } else {
+                left++;
+                right--;
+            }
+        }
+        return true;
+    }
+
+    public boolean isPalindrome_3(String s) {
+        int left = 0, right = s.length() - 1;
+        while (left < right) {
+            if (!Character.isLetterOrDigit(s.charAt(left))) {
+                left++;
+            } else if (!Character.isLetterOrDigit(s.charAt(right))) {
+                right--;
+            } else if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) {
+                return false;
+            } else {
+                left++;
+                right--;
+            }
+        }
+        return true;
+    }
+
+
+
+
     /*--------------------------------------------------------------------------------------------------------*/
 
     @Test
     public void test_125() {
-        // String s = "A man, a plan, a canal: Panama";
-        String s = "0P";
-        boolean palindrome = isPalindrome(s);
+        //        String s = "A man, a plan, a canal: Panama";
+        String s = "., ";
+        //        String s = "0P";
+        boolean palindrome = isPalindrome_2(s);
         log.info("palindrome={}", palindrome);
 
     }
 
     /*--------------------------------------------------------------------------------------------------------*/
-    public int minimumRefill(int[] plants, int capacityA, int capacityB) {
-        int left = 0, right = plants.length - 1, ans = 0;
-        int bobWater = capacityB;
-        int aliceWater = capacityA;
-        while (left < right) {
-            if (aliceWater < plants[left]) {
-                ans++;
-                aliceWater = capacityA;
-            }
-            aliceWater -= plants[left];
-            left++;
-
-            if (bobWater < plants[right]) {
-                ans++;
-                bobWater = capacityB;
-            }
-            bobWater -= plants[right];
-            right--;
-
-        }
-        if (left == right) {
-            if (Math.max(aliceWater, bobWater) < plants[left]) {
-                ans++;
-            }
-        }
-        return ans;
-    }
-
+    // https://leetcode.cn/problems/watering-plants-ii/
+    // 2105. 给植物浇水 II
     public int minimumRefill_fullVersion(int[] plants, int capacityA, int capacityB) {
         int left = 0, right = plants.length - 1;
         int alice = capacityA, bob = capacityB;
@@ -503,7 +521,6 @@ public class TwoPointerSolution {
             }
             alice -= plants[left];
             left++;
-
             // Bob 浇右边
             while (bob < plants[right]) {
                 ans++;
@@ -512,7 +529,7 @@ public class TwoPointerSolution {
             bob -= plants[right];
             right--;
         }
-
+        System.out.println("ans = " + ans);
         // 相遇时处理中间植物
         if (left == right) {
             if (Math.max(alice, bob) < plants[left]) {
@@ -522,9 +539,74 @@ public class TwoPointerSolution {
         return ans;
     }
 
+    @Smart("推荐写法,利用到了max(plants[i]) <= capacityA, capacityB <= 10^9 这个性质")
+    public int minimumRefill(int[] plants, int capacityA, int capacityB) {
+        int left = 0, right = plants.length - 1, ans = 0;
+        int leftWater = capacityA, rightWater = capacityB;
+        while (left < right) {
+            if (leftWater < plants[left]) {
+                ans++;
+                leftWater = capacityA;
+            }
+            leftWater -= plants[left];
+            left++;
+
+            if (rightWater < plants[right]) {
+                ans++;
+                rightWater = capacityB;
+            }
+            rightWater -= plants[right];
+            right--;
+        }
+        if (left == right) {
+            if (Math.max(leftWater, rightWater) < plants[left]) {
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+    @Smart("ok")
+    public int minimumRefill_1(int[] plants, int capacityA, int capacityB) {
+
+        int left = 0, right = plants.length - 1, alice = capacityA, bob = capacityB, ans = 0;
+        // tow pointers
+        while (left <= right) {
+            // at last, when meet
+            if (left == right) {
+                if (Math.max(bob, alice) < plants[left]) {
+                    ans++;
+                }
+                return ans;
+            }
+
+            // alice
+            if (alice < plants[left]) {
+                // alice refill
+                ans++;
+                alice = capacityA;
+            }
+            alice -= plants[left];
+            left++;
+
+            if (bob < plants[right]) {
+                // bob refill
+                ans++;
+                bob = capacityB;
+            }
+            bob -= plants[right];
+            right--;
+
+        }
+        return ans;
+    }
+
+
     @Test
     public void test_2510() {
-
-
+        int[] plants = {2, 2, 5, 2, 2};
+        int capacityA = 5, capacityB = 5;
+        int cnt = minimumRefill_1(plants, capacityA, capacityB);
+        System.out.println("cnt = " + cnt);
     }
 }

@@ -12,7 +12,7 @@ import static java.lang.annotation.ElementType.*;
 @Target(value = {CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, MODULE, PARAMETER, TYPE})
 public @interface Smart {
 
-    String value();
+    String value() default "";
 
 
 }
