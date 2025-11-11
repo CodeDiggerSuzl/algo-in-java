@@ -1,5 +1,7 @@
 package leetcode.solution.tow_pointer;
 
+import annotion.LongTime;
+import annotion.Smart;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -276,7 +278,7 @@ public class TwoPointerSolution {
 
 
     // 推荐写法 ****
-    // 固定最大边/ 二分剩余边
+    @Smart("固定最大边/ 二分剩余边")
     public int triangleNumber_2(int[] nums) {
         Arrays.sort(nums);
         int ans = 0;
@@ -296,6 +298,26 @@ public class TwoPointerSolution {
         return ans;
     }
 
+    public int triangleNumberDailyTest(int[] nums) {
+        int length = nums.length;
+        if (length <= 2) {
+            return 0;
+        }
+        int ans = 0;
+        Arrays.sort(nums);
+        for (int i = 2; i < length; i++) {
+            int left = 0, right = i - 1;
+            while (left < right) {
+                if (nums[left] + nums[right] <= nums[i]) {
+                    left++;
+                } else {
+                    ans += (right - left);
+                    right--;  // 这里不能 break
+                }
+            }
+        }
+        return ans;
+    }
 
     @Test
     public void test_611() {
@@ -307,7 +329,7 @@ public class TwoPointerSolution {
     /* -------------------------------------------------------------------------------------------------------- */
 
     /**
-     *11. 盛最多水的容器
+     * 11. 盛最多水的容器
      * 提示
      * 给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
      * <p>
@@ -317,11 +339,11 @@ public class TwoPointerSolution {
      * 说明：你不能倾斜容器。11. 盛最多水的容器
      * 提示
      * 给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
-     *
+     * <p>
      * 找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
-     *
+     * <p>
      * 返回容器可以储存的最大水量。
-     *
+     * <p>
      * 说明：你不能倾斜容器。
      */
     public int maxArea(int[] height) {
@@ -382,6 +404,8 @@ public class TwoPointerSolution {
         return ans;
     }
 
+    // recommend method
+    @Smart("推荐写法")
     public int trapWith2Pointer(int[] height) {
         int left = 0, right = height.length - 1, ans = 0, pre_max = 0, suf_max = 0;
         while (left <= right) {
@@ -408,5 +432,32 @@ public class TwoPointerSolution {
         System.out.println("sum = " + sum);
     }
     /* -----------------------------------------------  ----------------------------------------------- */
-    
+
+    /**
+     * <a href="https://leetcode.cn/problems/valid-palindrome/">125. 验证回文串</a>
+     */
+    @LongTime(reason = "空间复杂度比较高")
+    public boolean isPalindrome(String s) {
+        String str = s.toLowerCase().replaceAll("[^a-z0-9]", "");
+        int left = 0, right = str.length() - 1;
+        while (left <= right) {
+            if (str.charAt(left) == str.charAt(right)) {
+                left++;
+                right--;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+    /*--------------------------------------------------------------------------------------------------------*/
+
+    @Test
+    public void test_125() {
+        // String s = "A man, a plan, a canal: Panama";
+        String s = "0P";
+        boolean palindrome = isPalindrome(s);
+        log.info("palindrome={}", palindrome);
+
+    }
 }
