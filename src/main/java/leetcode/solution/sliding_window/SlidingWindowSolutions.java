@@ -206,5 +206,35 @@ public class SlidingWindowSolutions {
         System.out.println("ans = " + ans);
     }
 
+    /* ---------------------------------------------------------------------------------------*/
+    // <a href="https://leetcode.cn/problems/find-the-longest-semi-repetitive-substring/description/">2730. 找到最长的半重复子字符串 - 力扣（LeetCode）</a>
+    public int longestSemiRepetitiveSubstring(String s) {
+        int ans = 1, left = 0, count = 0;
+        for (int right = 1; right < s.length(); right++) {
+            // 窗口右边移动，扩大窗口，条件是相邻的字符相同
+            if (s.charAt(right - 1) == s.charAt(right)) {
+                count++;
+            }
+            // 当条件被破坏不满足的时候， 左侧窗口右边移动，同时只能有一对
+            while (count > 1) {
+                if (s.charAt(left) == s.charAt(left + 1)) {
+                    count--;
+                }
+                left++;
+            }
+            ans = Math.max(ans, right - left + 1);
+        }
+        return ans;
+    }
 
+    @Test
+    public void test_2730() {
+        String s = "5494";
+        int ans = longestSemiRepetitiveSubstring(s);
+        System.out.println("ans = " + ans);
+    }
+
+    /* ---------------------------------------------------------------------------------------*/
+    //<a href="https://leetcode.cn/problems/maximum-beauty-of-an-array-after-applying-operation/description/">2779. 数组的最大美丽值 - 力扣（LeetCode）</a>
+    
 }
