@@ -3,6 +3,7 @@ package leetcode.solution.sliding_window;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -236,5 +237,25 @@ public class SlidingWindowSolutions {
 
     /* ---------------------------------------------------------------------------------------*/
     //<a href="https://leetcode.cn/problems/maximum-beauty-of-an-array-after-applying-operation/description/">2779. 数组的最大美丽值 - 力扣（LeetCode）</a>
-    
+    public int maximumBeauty(int[] nums, int k) {
+        Arrays.sort(nums);
+        int ans = 0, left = 0;
+        for (int right = 0; right < nums.length; right++) {
+            while (left < right && nums[right] - nums[left] > 2 * k) {
+                left++;
+            }
+            ans = Math.max(ans, right - left + 1);
+        }
+        return ans;
+    }
+
+    @Test
+    public void test_2779() {
+        int[] arr = {4, 6, 1, 2};
+        int ans = maximumBeauty(arr, 2);
+        System.out.println("ans = " + ans);
+    }
+    /* ---------------------------------------------------------------------------------------*/
+
+
 }
