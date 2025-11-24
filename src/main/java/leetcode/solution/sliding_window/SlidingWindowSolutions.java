@@ -208,7 +208,16 @@ public class SlidingWindowSolutions {
     }
 
     /* ---------------------------------------------------------------------------------------*/
-    // <a href="https://leetcode.cn/problems/find-the-longest-semi-repetitive-substring/description/">2730. 找到最长的半重复子字符串 - 力扣（LeetCode）</a>
+
+    /**
+     * <a href="https://leetcode.cn/problems/find-the-longest-semi-repetitive-substring/description/">2730. 找到最长的半重复子字符串 - 力扣（LeetCode）</a>
+     * <p>
+     * 给你一个下标从 0 开始的字符串 s ，这个字符串只包含 0 到 9 的数字字符。
+     * 如果一个字符串 t 中至多有一对相邻字符是相等的，那么称这个字符串 t 是 半重复的 。
+     * 例如，"0010" 、"002020" 、"0123" 、"2002" 和 "54944" 是半重复字符串，而 "00101022" （相邻的相同数字对是 00 和 22）和 "1101234883" （相邻的相同数字对是 11 和 88）不是半重复字符串。
+     * <p>
+     * 请你返回 s 中最长 半重复 子字符串 的长度。
+     */
     public int longestSemiRepetitiveSubstring(String s) {
         int ans = 1, left = 0, count = 0;
         for (int right = 1; right < s.length(); right++) {
@@ -237,6 +246,23 @@ public class SlidingWindowSolutions {
 
     /* ---------------------------------------------------------------------------------------*/
     //<a href="https://leetcode.cn/problems/maximum-beauty-of-an-array-after-applying-operation/description/">2779. 数组的最大美丽值 - 力扣（LeetCode）</a>
+
+    /**
+     * 给你一个下标从 0 开始的整数数组 nums 和一个 非负 整数 k 。
+     * <p>
+     * 在一步操作中，你可以执行下述指令：
+     * <p>
+     * 在范围 [0, nums.length - 1] 中选择一个 此前没有选过 的下标 i 。
+     * 将 nums[i] 替换为范围 [nums[i] - k, nums[i] + k] 内的任一整数。
+     * 数组的 美丽值 定义为数组中由相等元素组成的最长子序列的长度。
+     * <p>
+     * 对数组 nums 执行上述操作任意次后，返回数组可能取得的 最大 美丽值。
+     * <p>
+     * 注意：你 只 能对每个下标执行 一次 此操作。
+     * <p>
+     * 数组的 子序列 定义是：经由原数组删除一些元素（也可能不删除）得到的一个新数组，且在此过程中剩余元素的顺序不发生改变。
+     * <b>数学推导题</b>
+     */
     public int maximumBeauty(int[] nums, int k) {
         Arrays.sort(nums);
         int ans = 0, left = 0;
@@ -257,5 +283,41 @@ public class SlidingWindowSolutions {
     }
     /* ---------------------------------------------------------------------------------------*/
 
+    /**
+     * <a href="https://leetcode.cn/problems/max-consecutive-ones-iii/description/">1004. 最大连续1的个数 III - 力扣（LeetCode）</a>
+     * <p>
+     * <b>和2730题很像</b>
+     * <p>
+     * 核心思路：滑动窗口（双指针）
+     * 你维护一个窗口 [left, right]，窗口里面最多允许有 k 个 0。
+     * 每次 right 往右扩时：
+     * 如果遇到 0，你的“额度”就少一个；
+     * 当窗口里 0 的数量超过 k，就移动 left 缩小窗口，直到窗口里的 0 再次 ≤ k；
+     * 每一步都更新最大窗口长度。
+     * 窗口能容纳多少元素，就说明翻转 k 个 0 后最多能把多少 1 连在一起。
+     */
+    public int longestOnes(int[] nums, int k) {
+        int ans = 0, left = 0, cnt = 0;
+        for (int right = 0; right < nums.length; right++) {
+            if (nums[right] == 0) {
+                cnt++;
+            }
+            while (cnt > k) {
+                if (nums[left] == 0) {
+                    cnt--;
+                }
+                left++;
+            }
+            ans = Math.max(ans, right - left + 1);
+        }
+        return ans;
+    }
 
+    @Test
+    public void test_1004() {
+        // 输入：nums = [1,1,1,0,0,0,1,1,1,1,0], K = 2
+        int[] arr = {1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0};
+        int ans = longestOnes(arr, 2);
+        System.out.println("ans = " + ans);
+    }
 }
