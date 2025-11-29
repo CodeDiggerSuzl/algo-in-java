@@ -320,4 +320,49 @@ public class SlidingWindowSolutions {
         int ans = longestOnes(arr, 2);
         System.out.println("ans = " + ans);
     }
+    /*--------------------------------------------------------------------------------------------------------*/
+
+    /**
+     * <a href="https://leetcode.cn/problems/count-subarrays-where-max-element-appears-at-least-k-times/description/">2962. 统计最大元素出现至少 K 次的子数组 - 力扣（LeetCode）</a>
+     * 2962. 统计最大元素出现至少 K 次的子数组
+     * 给你一个整数数组 nums 和一个正整数 k 。
+     * <p>
+     * 请你统计有多少满足 「nums 中的最大元素」至少出现 k 次的子数组，并返回满足这一条件的子数组的数目。
+     * <p>
+     * 子数组是数组中的一个连续元素序列。
+     * <p>
+     * 输入：nums = [1,3,2,3,3], k = 2
+     * 输出：6
+     * 解释：包含元素 3 至少 2 次的子数组为：[1,3,2,3]、[3,2,3]、[3,2,3,3]、[2,3,3] 和 [3,3] [1,3,2,3,3]
+     */
+    public long countSubarrays(int[] nums, int k) {
+        int ans = 0, left = 0, cnt = 0;
+        int len = nums.length;
+        int[] arr = Arrays.copyOf(nums, len);
+        Arrays.sort(arr);
+        int max = arr[len - 1];
+        for (int right = 0; right < len; right++) {
+            if (nums[right] == max) {
+                cnt++;
+            }
+            // 满足条件
+            while (cnt >= k) {
+                if (nums[left] == max) {
+                    cnt--;
+                }
+                left++;
+            }
+            log.info("l={},r={}", left, right, Arrays.c);
+            ans += left;
+        }
+        return ans;
+    }
+
+    @Test
+    public void test_2692() {
+        //        int[] arr = {61, 23, 38, 23, 56, 40, 82, 56, 82, 82, 82, 70, 8, 69, 8, 7, 19, 14, 58, 42, 82, 10, 82, 78, 15, 82};
+        int[] arr = {1, 3, 2, 3, 3};
+        long cnt = countSubarrays(arr, 2);
+        System.out.println("cnt = " + cnt);
+    }
 }
