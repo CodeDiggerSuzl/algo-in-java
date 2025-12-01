@@ -336,11 +336,35 @@ public class SlidingWindowSolutions {
      * 解释：包含元素 3 至少 2 次的子数组为：[1,3,2,3]、[3,2,3]、[3,2,3,3]、[2,3,3] 和 [3,3] [1,3,2,3,3]
      */
     public long countSubarrays(int[] nums, int k) {
-        int ans = 0, left = 0, cnt = 0;
-        int len = nums.length;
-        int[] arr = Arrays.copyOf(nums, len);
-        Arrays.sort(arr);
-        int max = arr[len - 1];
+        int n = nums.length;
+        int max = Arrays.stream(nums).max().getAsInt();
+        long ans = 0;
+        int left = 0, cnt = 0;
+        for (int right = 0; right < n; right++) {
+            if (nums[right] == max) cnt++;
+            while (cnt >= k) {
+                // 关键公式：以 right 为起点往右扩展的子数组都合法
+                ans += (n - right);
+                if (nums[left] == max) cnt--;
+                left++;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * 你滑动窗口，right 往右推进。
+     * 一旦窗口内最大值出现 ≥ k 次：
+     * •	你锁定最小的 left，使 [left, right] 是第一个满足条件的窗口。
+     * •	从这之后，任何以 right 或更右结尾的子数组，都满足条件。
+     * •	数量就是 n - right。
+     * <p>
+     * 然后继续向右移动 left，去找下一个满足的窗口。
+     * 这就是典型的 “固定 right，移动 left，累计贡献” 模式。
+     */
+    public long countSubArrays_good(int[] nums, int k) {
+        int ans = 0, left = 0, cnt = 0, len = nums.length;
+        int max = Arrays.stream(nums).max().getAsInt();
         for (int right = 0; right < len; right++) {
             if (nums[right] == max) {
                 cnt++;
@@ -352,7 +376,7 @@ public class SlidingWindowSolutions {
                 }
                 left++;
             }
-            log.info("l={},r={}", left, right, Arrays.c);
+            log.info("l={},r={}", left, right);
             ans += left;
         }
         return ans;
@@ -364,5 +388,12 @@ public class SlidingWindowSolutions {
         int[] arr = {1, 3, 2, 3, 3};
         long cnt = countSubarrays(arr, 2);
         System.out.println("cnt = " + cnt);
+        long cnt2 = countSubArrays_good(arr, 2);
+        System.out.println(cnt2);
     }
+
+    /**
+     * tips: 数组长度一般是: right - left + 1
+     *
+     */
 }
