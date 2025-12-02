@@ -335,34 +335,7 @@ public class SlidingWindowSolutions {
      * 输出：6
      * 解释：包含元素 3 至少 2 次的子数组为：[1,3,2,3]、[3,2,3]、[3,2,3,3]、[2,3,3] 和 [3,3] [1,3,2,3,3]
      */
-    public long countSubarrays(int[] nums, int k) {
-        int n = nums.length;
-        int max = Arrays.stream(nums).max().getAsInt();
-        long ans = 0;
-        int left = 0, cnt = 0;
-        for (int right = 0; right < n; right++) {
-            if (nums[right] == max) cnt++;
-            while (cnt >= k) {
-                // 关键公式：以 right 为起点往右扩展的子数组都合法
-                ans += (n - right);
-                if (nums[left] == max) cnt--;
-                left++;
-            }
-        }
-        return ans;
-    }
-
-    /**
-     * 你滑动窗口，right 往右推进。
-     * 一旦窗口内最大值出现 ≥ k 次：
-     * •	你锁定最小的 left，使 [left, right] 是第一个满足条件的窗口。
-     * •	从这之后，任何以 right 或更右结尾的子数组，都满足条件。
-     * •	数量就是 n - right。
-     * <p>
-     * 然后继续向右移动 left，去找下一个满足的窗口。
-     * 这就是典型的 “固定 right，移动 left，累计贡献” 模式。
-     */
-    public long countSubArrays_good(int[] nums, int k) {
+    public long countSubArrays_outside(int[] nums, int k) {
         int ans = 0, left = 0, cnt = 0, len = nums.length;
         int max = Arrays.stream(nums).max().getAsInt();
         for (int right = 0; right < len; right++) {
@@ -382,13 +355,80 @@ public class SlidingWindowSolutions {
         return ans;
     }
 
+    /**
+     * 你滑动窗口，right 往右推进。
+     * 一旦窗口内最大值出现 ≥ k 次：
+     * •	你锁定最小的 left，使 [left, right] 是第一个满足条件的窗口。
+     * •	从这之后，任何以 right 或更右结尾的子数组，都满足条件。
+     * •	数量就是 n - right。
+     * <p>
+     * 然后继续向右移动 left，去找下一个满足的窗口。
+     * 这就是典型的 “固定 right，移动 left，累计贡献” 模式。
+     */
+    public long countSubarrays(int[] nums, int k) {
+        long ans = 0;
+        int left = 0, cnt = 0, len = nums.length, max = 0;
+        for (int num : nums) {
+            if (num > max) max = num;
+        }
+        for (int right = 0; right < len; right++) {
+            if (nums[right] == max) {
+                cnt++;
+            }
+            while (cnt >= k) {
+                ans += len - right;
+                if ((long) nums[left] == max) {
+                    cnt--;
+                }
+                left++;
+            }
+        }
+        return ans;
+    }
+
     @Test
     public void test_2692() {
         //        int[] arr = {61, 23, 38, 23, 56, 40, 82, 56, 82, 82, 82, 70, 8, 69, 8, 7, 19, 14, 58, 42, 82, 10, 82, 78, 15, 82};
         int[] arr = {1, 3, 2, 3, 3};
-        long cnt = countSubarrays(arr, 2);
+        //        long cnt = countSubarrays(arr, 2);
+        //        System.out.println("cnt = " + cnt);
+        long cnt2 = countSubArrays_outside(arr, 2);
+        System.out.println(cnt2);
+    }
+    /* ---------------------------------------------------------------------------------------*/
+
+    /**
+     * <a href="https://leetcode.cn/problems/count-subarrays-with-score-less-than-k/description/">2302. 统计得分小于 K 的子数组数目 - 力扣（LeetCode）</a>
+     * 一个数组的 分数 定义为数组之和 乘以 数组的长度。
+     * <p>
+     * 比方说，[1, 2, 3, 4, 5] 的分数为 (1 + 2 + 3 + 4 + 5) * 5 = 75 。
+     * 给你一个正整数数组 nums 和一个整数 k ，请你返回 nums 中分数 严格小于 k 的 非空整数子数组数目。
+     * <p>
+     * 子数组 是数组中的一个连续元素序列。
+     */
+
+    public long countSubarrays_2302(int[] nums, long k) {
+        long ans = 0L, sum = 0L;
+        int left = 0, len = nums.length;
+        for (int right = 0; right < len; right++) {
+            sum += nums[right];
+            // 当不满足条件的时候,不断缩小左端点 找到刚好满足点
+            while (sum * (right - left + 1) >= k) {
+                sum -= nums[left];
+                left++;
+            }
+            log.info("L={},R={}", left, right);
+            ans += right - left + 1;
+        }
+        return ans;
+    }
+
+    @Test
+    public void test_2302() {
+        int[] arr = {2, 1, 4, 3, 5};
+        long cnt = countSubarrays_2302(arr, 10);
         System.out.println("cnt = " + cnt);
-        long cnt2 = countSubArrays_good(arr, 2);
+        long cnt2 = countSubarrays_2302(arr, 2);
         System.out.println(cnt2);
     }
 
