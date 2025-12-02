@@ -394,6 +394,6 @@ public class SlidingWindowSolutions {
 
     /**
      * tips: 数组长度一般是: right - left + 1
-     * 其他的是: len-right
+     * 其他的是: len-right.
      */
 }
