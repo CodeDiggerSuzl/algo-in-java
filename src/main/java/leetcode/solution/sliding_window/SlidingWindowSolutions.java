@@ -436,4 +436,44 @@ public class SlidingWindowSolutions {
      * tips: 数组长度一般是: right - left + 1
      * 其他的是: len-right.
      */
+    /* ---------------------------------------------------------------------------------------*/
+
+    /**
+     * 1658. 将 x 减到 0 的最小操作数
+     * 提示
+     * 给你一个整数数组 nums 和一个整数 x 。每一次操作时，你应当移除数组 nums 最左边或最右边的元素，然后从 x 中减去该元素的值。请注意，需要 修改 数组以供接下来的操作使用。
+     * <p>
+     * 如果可以将 x 恰好 减到 0 ，返回 最小操作数；否则，返回 -1 。
+     */
+    public int minOperations(int[] nums, int x) {
+        int ans = -1, sum = 0, left = 0, len = nums.length;
+        for (int num : nums) {
+            sum += num;
+        }
+        if (sum < x) {
+            return -1;
+        }
+        // 区间内的和
+        int midTarget = sum - x;
+        int midSum = 0;
+        for (int right = 0; right < len; right++) {
+            midSum += nums[right];
+            while (midSum > midTarget) {
+                midSum -= nums[left];
+                left++;
+            }
+            if (midSum == midTarget) {
+                ans = Math.max(ans, right - left + 1);
+            }
+        }
+        return ans == -1 ? -1 : len - ans;
+    }
+
+    @Test
+    public void test_1658() {
+        int[] arr = {1};
+        int ans = minOperations(arr, 1);
+        System.out.println("ans = " + ans);
+    }
+
 }
