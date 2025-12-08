@@ -476,4 +476,51 @@ public class SlidingWindowSolutions {
         System.out.println("ans = " + ans);
     }
 
+    /* ---------------------------------------------------------------------------------------*/
+
+    /**
+     * https://leetcode.cn/problems/replace-the-substring-for-balanced-string/description/
+     * 有一个只含有 'Q', 'W', 'E', 'R' 四种字符，且长度为 n 的字符串。
+     * <p>
+     * 假如在该字符串中，这四个字符都恰好出现 n/4 次，那么它就是一个「平衡字符串」。
+     * <p>
+     * 给你一个这样的字符串 s，请通过「替换一个子串」的方式，使原字符串 s 变成一个「平衡字符串」。
+     * <p>
+     * 你可以用和「待替换子串」长度相同的 任何 其他字符串来完成替换。
+     * <p>
+     * 请返回待替换子串的最小可能长度。
+     * <p>
+     * 如果原字符串自身就是一个平衡字符串，则返回 0。
+     */
+    public int balancedString(String s) {
+        int[] cnt = new int[128];
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            cnt[c]++;
+        }
+        int len = s.length(), ans = len, avg = len / 4, left = 0;
+
+        System.out.println("Arrays.toString(cnt) = " + Arrays.toString(cnt));
+        if (cnt['Q'] == avg && cnt['W'] == avg && cnt['E'] == avg && cnt['R'] == avg) {
+            return 0;
+        }
+        // 统计窗口外边的
+        for (int right = 0; right < s.length(); right++) {
+            cnt[s.charAt(right)]--; // cnt 统计的是窗口外边
+            // 窗口外边都小于 avg 才能满足
+            while (cnt['Q'] <= avg && cnt['W'] <= avg && cnt['E'] <= avg && cnt['R'] <= avg) {
+                ans = Math.min(ans, right - left + 1);
+                cnt[s.charAt(left)]++;
+                left++;
+            }
+        }
+        return ans;
+    }
+
+    @Test
+    public void test_1234() {
+        String s = "QQWE";
+        int ans = balancedString(s);
+        System.out.println("ans = " + ans);
+    }
 }
