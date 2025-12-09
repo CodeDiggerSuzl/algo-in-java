@@ -1,50 +1,23 @@
 import org.junit.Test;
 
 public class Solution {
-    public int minimumRefill(int[] plants, int capacityA, int capacityB) {
-
-        int left = 0, right = plants.length - 1, alice = capacityA, bob = capacityB, ans = 0;
-        // tow pointers
+    public int mySqrt(int x) {
+        int left = 0, right = x;
         while (left <= right) {
-            // at last, when meet
-            if (left == right) {
-                if (Math.max(bob, alice) < plants[left]) {
-                    ans++;
-                }
-                return ans;
+            int mid = left + (right - left) / 2;
+            if ((long) mid * mid <= x) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
             }
-
-            // alice
-            if (alice < plants[left]) {
-                // alice refill
-                ans++;
-                alice = capacityA;
-            }
-            alice -= plants[left];
-            left++;
-
-            if (bob < plants[right]) {
-                // bob refill
-                ans++;
-                bob = capacityB;
-            }
-            bob -= plants[right];
-            right--;
-
         }
-        return ans;
+        return left - 1;
     }
 
     @Test
-    public void test_break() {
-        int i = 0;
-        while (i < 100) {
-            System.out.println("i = " + i);
-            if (i == 2) {
-                break;
-            }
-            i++;
-        }
+    public void test() {
+        int i = mySqrt(2147395599);
+        System.out.println(i);
     }
 
 }
