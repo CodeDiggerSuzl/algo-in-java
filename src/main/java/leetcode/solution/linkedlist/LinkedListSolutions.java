@@ -1,14 +1,15 @@
 package leetcode.solution.linkedlist;
 
 
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
+@Slf4j
 public class LinkedListSolutions {
 
     /**
-     *
-     * @param head
-     * @return
+     * <a href="https://leetcode.cn/problems/reverse-linked-list/description/">206. 反转链表 - 力扣（LeetCode）</a>
      */
     public ListNode reverseList(ListNode head) {
         ListNode prev = null;
@@ -22,14 +23,136 @@ public class LinkedListSolutions {
         return prev;
     }
 
+    public ListNode reverseList2(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode newHead = reverseList2(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newHead;
+    }
+
+
     @Test
-    public void test_() {
+    public void test_206() {
         int[] arr = {1, 2, 3, 5};
         ListNode node = createLinkedList(arr);
-        ListNode head = reverseList(node);
+        ListNode head = reverseList2(node);
         printLinkedList(head);
+    }
+
+    /* ---------------------------------------------------------------------------------------*/
+
+    /**
+     * <a href="https://leetcode.cn/problems/reverse-linked-list-ii/description/">92. 反转链表 II - 力扣（LeetCode）</a>
+     * 给你单链表的头指针 head 和两个整数 left 和 right ，其中 left <= right 。请你反转从位置 left 到位置 right 的链表节点，返回 反转后的链表 。
+     * <p>
+     * 输入：head = [1,2,3,4,5], left = 2, right = 4
+     * 输出：[1,4,3,2,5]
+     */
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode dummy = new ListNode(-1, head);
+        // 0 1 2 3 4 5
+        ListNode p0 = dummy;
+        for (int i = 1; i < left; i++) {
+            p0 = p0.next; // 找到 left 前一个节点
+        }
+        log.info("after finding p0 = {}", p0.val);
+        // 翻转数组
+        ListNode prev = null;
+        ListNode curr = p0.next;
+        for (int j = left; j <= right; j++) {
+            ListNode temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        log.info("after loop prev={},curr={},p0={}", prev.val, curr.val, p0.val);
+        p0.next.next = curr;
+        p0.next = prev;
+        return dummy.next;
+    }
+
+    @Test
+    public void test_92() {
+        ListNode head = createLinkedList(new int[]{1, 2, 3, 4, 5});
+        ListNode listNode = reverseBetween(head, 2, 4);
+        printLinkedList(listNode);
+    }
+
+    /* ---------------------------------------------------------------------------------------*/
+
+    /**
+     *
+     * <a href="https://leetcode.cn/problems/add-two-numbers-ii/description/">445. 两数相加 II - 力扣（LeetCode）</a>
+     * <p>
+     * 给你两个 非空 链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。
+     * <p>
+     * 你可以假设除了数字 0 之外，这两个数字都不会以零开头。
+     */
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode h1 = reverse(l1);
+        ListNode h2 = reverse(l2);
+        ListNode tail = new ListNode();
+        int add = 0;
+        while (h1 != null || h2 != null) {
+            int sum = 0;
+            if (h1 != null) {
+                sum += h1.val;
+                h1 = h1.next;
+
+            }
+            if (h2 != null) {
+                sum += h2.val;
+                h2 = h2.next;
+            }
+            sum += add;
+            if (sum >= 10) {
+                add = 1;
+                sum = sum - 10;
+            } else {
+                add = 0;
+            }
+            log.info("sum={}", sum);
+            tail.setVal(sum);
+
+            ListNode p = new ListNode();
+            p.next = tail;
+            tail = p;
+            printLinkedList(tail);
+        }
+        if (add != 0) {
+            tail.val = add;
+            return tail;
+        } else {
+            return tail.next;
+        }
+    }
+
+    private ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
+        }
+        return prev;
+    }
+
+    @Test
+    public void test_225() {
+        ListNode l1 = createLinkedList(new int[]{7, 2, 4, 3});
+        ListNode l2 = createLinkedList(new int[]{5, 6, 4});
+        ListNode l3 = addTwoNumbers(l1, l2);
+        printLinkedList(l3);
 
     }
+
+    /* ---------------------------------------------------------------------------------------*/
 
 
     public static ListNode createLinkedList(int[] arr) {
@@ -50,20 +173,21 @@ public class LinkedListSolutions {
         return next; // 返回真正的头节点
     }
 
+
     // ---------------------------------------------------------
     // 3.【核心工具】打印链表 (用于检查结果)
     // ---------------------------------------------------------
     public static void printLinkedList(ListNode head) {
         ListNode cur = head;
         while (cur != null) {
-            System.out.print(cur.val + " → ");
+            System.out.print(cur.val + " -> ");
             cur = cur.next;
         }
-        System.out.println("null");
+        System.out.println("NULL");
     }
 }
 
-
+@Data
 class ListNode {
     int val;
     ListNode next;
@@ -79,5 +203,6 @@ class ListNode {
         this.val = val;
         this.next = next;
     }
+
 }
 
