@@ -28,6 +28,7 @@ public class LinkedListSolutions {
             return head;
         }
         ListNode newHead = reverseList2(head.next);
+        log.debug("new head={},head.val={}", newHead.val, head.val);
         head.next.next = head;
         head.next = null;
         return newHead;
@@ -84,7 +85,6 @@ public class LinkedListSolutions {
     /* ---------------------------------------------------------------------------------------*/
 
     /**
-     *
      * <a href="https://leetcode.cn/problems/add-two-numbers-ii/description/">445. 两数相加 II - 力扣（LeetCode）</a>
      * <p>
      * 给你两个 非空 链表来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。
@@ -95,40 +95,26 @@ public class LinkedListSolutions {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode h1 = reverse(l1);
         ListNode h2 = reverse(l2);
-        ListNode tail = new ListNode();
-        int add = 0;
-        while (h1 != null || h2 != null) {
-            int sum = 0;
-            if (h1 != null) {
-                sum += h1.val;
-                h1 = h1.next;
+        ListNode dummy = null;
+        int carry = 0;
+        while (h1 != null || h2 != null || carry > 0) {
+            int sum = carry;
+            sum += h1 == null ? 0 : h1.val;
+            sum += h2 == null ? 0 : h2.val;
+            carry = sum / 10;
+            ListNode tmp = new ListNode();
+            tmp.val = sum % 10;
+            tmp.next = dummy;
 
+            if (h1 != null) {
+                h1 = h1.next;
             }
             if (h2 != null) {
-                sum += h2.val;
                 h2 = h2.next;
             }
-            sum += add;
-            if (sum >= 10) {
-                add = 1;
-                sum = sum - 10;
-            } else {
-                add = 0;
-            }
-            log.info("sum={}", sum);
-            tail.setVal(sum);
-
-            ListNode p = new ListNode();
-            p.next = tail;
-            tail = p;
-            printLinkedList(tail);
+            dummy = tmp;
         }
-        if (add != 0) {
-            tail.val = add;
-            return tail;
-        } else {
-            return tail.next;
-        }
+        return dummy;
     }
 
     private ListNode reverse(ListNode head) {
@@ -154,7 +140,15 @@ public class LinkedListSolutions {
 
     /* ---------------------------------------------------------------------------------------*/
 
+    /**
+     * <a href="https://leetcode.cn/problems/reverse-nodes-in-k-group/description/">25. K 个一组翻转链表 - 力扣（LeetCode）</a>
+     */
+    public ListNode reverseKGroup(ListNode head, int k) {
 
+    }
+
+
+    /* ---------------------------------------------------------------------------------------*/
     public static ListNode createLinkedList(int[] arr) {
         if (arr == null || arr.length == 0) {
             return null;
