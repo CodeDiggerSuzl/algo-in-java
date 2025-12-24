@@ -145,6 +145,8 @@ public class LinkedListSolutions {
      */
     public ListNode reverseKGroup(ListNode head, int k) {
 
+        // 链表做到这里了 TODO
+        return null;
     }
 
 
