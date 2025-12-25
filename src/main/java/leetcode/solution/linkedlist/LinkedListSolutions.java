@@ -129,6 +129,10 @@ public class LinkedListSolutions {
         return prev;
     }
 
+    public ListNode addTwoNumbersStack(ListNode l1, ListNode l2) {
+
+    }
+
     @Test
     public void test_225() {
         ListNode l1 = createLinkedList(new int[]{7, 2, 4, 3});
