@@ -130,7 +130,7 @@ public class LinkedListSolutions {
     }
 
     public ListNode addTwoNumbersStack(ListNode l1, ListNode l2) {
-
+        return null;
     }
 
     @Test
