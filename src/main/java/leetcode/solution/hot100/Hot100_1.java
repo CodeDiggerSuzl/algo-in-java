@@ -1,10 +1,16 @@
 package leetcode.solution.hot100;
 
+import annotion.PASS;
+import annotion.Stocked;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import utils.JsonUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class Hot100_1 {
@@ -12,6 +18,7 @@ public class Hot100_1 {
      * <a href="https://leetcode.cn/problems/two-sum/?envType=study-plan-v2&envId=top-100-liked">1.tow-sum</a>
      *
      */
+    @PASS
     public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> idxMap = new HashMap<>();
         for (int idx = 0; idx < nums.length; idx++) {
@@ -36,6 +43,7 @@ public class Hot100_1 {
     /**
      * <a href="https://leetcode.cn/problems/group-anagrams/?envType=study-plan-v2&envId=top-100-liked">49.字母异位词分组</a>
      */
+    @PASS
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String, List<String>> map = new HashMap<>();
         for (String str : strs) {
@@ -56,4 +64,36 @@ public class Hot100_1 {
         log.info("No.49 result={}", JsonUtil.toJson(list));
     }
 
+    /*--------------------------------------------------------------------------------------------------------*/
+
+    /**
+     * No.128
+     */
+    @Stocked
+    public int longestConsecutive(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int len = nums.length;
+        Arrays.sort(nums);
+        int ans = 1;
+        int currLen = 1;
+        for (int i = 1; i < len; i++) {
+            if (nums[i - 1] == nums[i]) {
+                continue;
+            }
+            if (nums[i] == nums[i - 1] + 1) {
+                currLen++;
+                ans = Math.max(currLen, ans);
+            } else {
+                currLen = 1;
+            }
+        }
+        return ans;
+    }
+
+    @Test
+    public void test_128() {
+        int[] arr = {0, 3, 7, 2, 5, 8, 4, 6, 0, 1};
+        int len = longestConsecutive(arr);
+        System.out.println("len = " + len);
+    }
 }
