@@ -103,7 +103,7 @@ public class Solution {
      * 作者：灵茶山艾府
      * 链接：https://leetcode.cn/problems/longest-palindromic-substring/solutions/2958179/mo-ban-on-manacher-suan-fa-pythonjavacgo-t6cx/
      */
-    public String longestPalindrome(String S) {
+    public String longestPalindromeX(String S) {
         char[] s = S.toCharArray();
         int n = s.length;
         int ansLeft = 0;

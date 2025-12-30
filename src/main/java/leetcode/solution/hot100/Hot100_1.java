@@ -6,11 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import utils.JsonUtil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class Hot100_1 {
@@ -96,4 +92,66 @@ public class Hot100_1 {
         int len = longestConsecutive(arr);
         System.out.println("len = " + len);
     }
+
+
+    /* ---------------------------------------------------------------------------------------*/
+
+    /**
+     * <a href="https://leetcode.cn/problems/container-with-most-water/description/?envType=study-plan-v2&envId=top-100-liked">...</a>
+     * 给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+     * 找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+     * 返回容器可以储存的最大水量。
+     * 说明：你不能倾斜容器。
+     */
+    public int maxArea(int[] height) {
+        int left = 0, right = height.length - 1;
+        int ans = 0;
+        while (left < right) {
+            int leftHeight = height[left];
+            int rightHeight = height[right];
+            int area = Math.min(leftHeight, rightHeight) * (right - left);
+            ans = Math.max(area, ans);
+            if (leftHeight < rightHeight) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return ans;
+    }
+
+
+    /* ---------------------------------------------------------------------------------------*/
+
+    /**
+     * <a href="https://leetcode.cn/problems/trapping-rain-water/description/">42. 接雨水 - 力扣（LeetCode）</a>
+     */
+    public int trap(int[] height) {
+        int ans = 0;
+        int left = 0, right = height.length - 1;
+        int preMax = 0, sufMax = 0;
+        while (left < right) {
+            preMax = Math.max(preMax, height[left]);
+            sufMax = Math.max(sufMax, height[right]);
+
+            if (sufMax < preMax) {
+                ans += sufMax - height[right];
+                right--;
+            } else {
+                ans += preMax - height[left];
+                left++;
+            }
+        }
+        return ans;
+    }
+
+    @Test
+    public void test_42() {
+        int[] arr = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+        int trap = trap(arr);
+        System.out.println("trap = " + trap);
+
+    }
+
+
 }
